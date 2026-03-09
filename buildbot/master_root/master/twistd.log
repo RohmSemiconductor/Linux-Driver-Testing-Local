@@ -1,0 +1,835 @@
+2026-03-09 10:04:21+0200 [-] Loading buildbot.tac...
+2026-03-09 10:04:21+0200 [-] Loaded.
+2026-03-09 10:04:21+0200 [-] twistd 25.5.0 (/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/bin/python3 3.14.0) starting up.
+2026-03-09 10:04:21+0200 [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2026-03-09 10:04:21+0200 [-] Starting BuildMaster -- buildbot.version: 4.3.0
+2026-03-09 10:04:21+0200 [-] Loading configuration from '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/master.cfg'
+2026-03-09 10:04:21+0200 [-] error while parsing config file:
+	Traceback (most recent call last):
+	  File "/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/lib64/python3.14/site-packages/buildbot/config/master.py", line 103, in loadConfigDict
+	    execfile(filename, localDict)
+	  File "/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/lib64/python3.14/site-packages/twisted/python/compat.py", line 213, in execfile
+	    exec(code, globals, locals)
+	  File "/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/master.cfg", line 14, in <module>
+	    from passwords import *
+	builtins.ModuleNotFoundError: No module named 'passwords'
+	
+2026-03-09 10:04:21+0200 [-] Configuration Errors:
+2026-03-09 10:04:21+0200 [-]   error while parsing config file: No module named 'passwords' (traceback in logfile)
+2026-03-09 10:04:21+0200 [-] Halting master.
+2026-03-09 10:04:21+0200 [-] BuildMaster startup failed
+2026-03-09 10:04:21+0200 [-] BuildMaster is stopped
+2026-03-09 10:04:21+0200 [-] Main loop terminated.
+2026-03-09 10:04:21+0200 [-] Server Shut Down.
+2026-03-09 10:05:30+0200 [-] Loading buildbot.tac...
+2026-03-09 10:05:31+0200 [-] Loaded.
+2026-03-09 10:05:31+0200 [-] twistd 25.5.0 (/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/bin/python3 3.14.0) starting up.
+2026-03-09 10:05:31+0200 [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2026-03-09 10:05:31+0200 [-] Starting BuildMaster -- buildbot.version: 4.3.0
+2026-03-09 10:05:31+0200 [-] Loading configuration from '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/master.cfg'
+2026-03-09 10:05:31+0200 [-] error while parsing config file:
+	Traceback (most recent call last):
+	  File "/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/lib64/python3.14/site-packages/buildbot/config/master.py", line 103, in loadConfigDict
+	    execfile(filename, localDict)
+	  File "/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/lib64/python3.14/site-packages/twisted/python/compat.py", line 213, in execfile
+	    exec(code, globals, locals)
+	  File "/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/master.cfg", line 38, in <module>
+	    worker.Worker("worker1", worker1pass, max_builds=1),
+	builtins.NameError: name 'worker1pass' is not defined
+	
+2026-03-09 10:05:31+0200 [-] Configuration Errors:
+2026-03-09 10:05:31+0200 [-]   error while parsing config file: name 'worker1pass' is not defined (traceback in logfile)
+2026-03-09 10:05:31+0200 [-] Halting master.
+2026-03-09 10:05:31+0200 [-] BuildMaster startup failed
+2026-03-09 10:05:31+0200 [-] BuildMaster is stopped
+2026-03-09 10:05:31+0200 [-] Main loop terminated.
+2026-03-09 10:05:31+0200 [-] Server Shut Down.
+2026-03-09 10:06:37+0200 [-] Loading buildbot.tac...
+2026-03-09 10:06:38+0200 [-] Loaded.
+2026-03-09 10:06:38+0200 [-] twistd 25.5.0 (/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/bin/python3 3.14.0) starting up.
+2026-03-09 10:06:38+0200 [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2026-03-09 10:06:38+0200 [-] Starting BuildMaster -- buildbot.version: 4.3.0
+2026-03-09 10:06:38+0200 [-] Loading configuration from '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/master.cfg'
+2026-03-09 10:06:38+0200 [-] /home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/lib64/python3.14/site-packages/buildbot/config/master.py:408: buildbot.warnings.ConfigWarning: `buildbotNetUsageData` is not configured and defaults to basic.
+	This parameter helps the buildbot development team to understand the installation base.
+	No personal information is collected.
+	Only installation software version info and plugin usage is sent.
+	You can `opt-out` by setting this variable to None.
+	Or `opt-in` for more information by setting it to "full".
+	
+2026-03-09 10:06:38+0200 [-] Setting up database with URL 'sqlite:/state.sqlite'
+2026-03-09 10:06:38+0200 [-] setting database journal mode to 'wal'
+2026-03-09 10:06:38+0200 [-] The Buildmaster database needs to be upgraded before this version of
+2026-03-09 10:06:38+0200 [-] buildbot can run.  Use the following command-line
+2026-03-09 10:06:38+0200 [-] 
+2026-03-09 10:06:38+0200 [-]     buildbot upgrade-master /home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master
+2026-03-09 10:06:38+0200 [-] 
+2026-03-09 10:06:38+0200 [-] to upgrade the database, and try starting the buildmaster again.  You may
+2026-03-09 10:06:38+0200 [-] want to make a backup of your buildmaster before doing so.
+2026-03-09 10:06:38+0200 [-] BuildMaster startup failed
+2026-03-09 10:06:38+0200 [-] BuildMaster is stopped
+2026-03-09 10:06:38+0200 [-] Main loop terminated.
+2026-03-09 10:06:38+0200 [-] Server Shut Down.
+2026-03-09 10:07:13+0200 [-] Loading buildbot.tac...
+2026-03-09 10:07:14+0200 [-] Loaded.
+2026-03-09 10:07:14+0200 [-] twistd 25.5.0 (/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/bin/python3 3.14.0) starting up.
+2026-03-09 10:07:14+0200 [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2026-03-09 10:07:14+0200 [-] Starting BuildMaster -- buildbot.version: 4.3.0
+2026-03-09 10:07:14+0200 [-] Loading configuration from '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/master.cfg'
+2026-03-09 10:07:14+0200 [-] /home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/lib64/python3.14/site-packages/buildbot/config/master.py:408: buildbot.warnings.ConfigWarning: `buildbotNetUsageData` is not configured and defaults to basic.
+	This parameter helps the buildbot development team to understand the installation base.
+	No personal information is collected.
+	Only installation software version info and plugin usage is sent.
+	You can `opt-out` by setting this variable to None.
+	Or `opt-in` for more information by setting it to "full".
+	
+2026-03-09 10:07:14+0200 [-] Setting up database with URL 'sqlite:/state.sqlite'
+2026-03-09 10:07:14+0200 [-] setting database journal mode to 'wal'
+2026-03-09 10:07:14+0200 [-] adding 15 new builders, removing 0
+2026-03-09 10:07:15+0200 [-] adding 6 new change_sources, removing 0
+2026-03-09 10:07:15+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-test_linux'
+2026-03-09 10:07:15+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_stable'
+2026-03-09 10:07:15+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_fast_test'
+2026-03-09 10:07:15+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_mainline'
+2026-03-09 10:07:15+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_rohm_devel'
+2026-03-09 10:07:15+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_next'
+2026-03-09 10:07:15+0200 [-] adding 26 new schedulers, removing 0
+2026-03-09 10:07:18+0200 [-] initializing www plugin 'waterfall_view'
+2026-03-09 10:07:18+0200 [-] initializing www plugin 'console_view'
+2026-03-09 10:07:18+0200 [-] initializing www plugin 'grid_view'
+2026-03-09 10:07:18+0200 [-] initializing www plugin 'waterfall_view'
+2026-03-09 10:07:18+0200 [-] initializing www plugin 'console_view'
+2026-03-09 10:07:18+0200 [-] initializing www plugin 'grid_view'
+2026-03-09 10:07:18+0200 [-] BuildbotSite starting on 8010
+2026-03-09 10:07:18+0200 [-] Starting factory <buildbot.www.service.BuildbotSite object at 0x7fc3cc2f8050>
+2026-03-09 10:07:18+0200 [-] adding 3 new workers, removing 0
+2026-03-09 10:07:18+0200 [-] Starting Worker -- version: 4.3.0
+2026-03-09 10:07:18+0200 [-] recording hostname in twistd.hostname
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Got workerinfo from 'Linux_Worker'
+2026-03-09 10:07:18+0200 [-] bot attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to Test_Linux
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux-next
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux_stable_linux-6_1_y
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux-fast-test
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux-rohm-devel
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux_stable_linux-6_6_y
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux_stable_linux-6_12_y
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to Clean_database
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to Linux_Mainline
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux_stable_linux-rolling-stable
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Linux_Worker attached to linux_stable_linux-5_15_y
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Starting Worker -- version: 4.3.0
+2026-03-09 10:07:18+0200 [-] recording hostname in twistd.hostname
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Got workerinfo from 'Test_Worker'
+2026-03-09 10:07:18+0200 [-] bot attached
+2026-03-09 10:07:18+0200 [-] I have a leftover directory 'tests' that is not being used by the buildmaster: you can delete it now
+2026-03-09 10:07:18+0200 [-] Worker Test_Worker attached to ADDAC_tests
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Test_Worker attached to Accelerometer_tests
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:18+0200 [-] Worker Test_Worker attached to PMIC_tests
+2026-03-09 10:07:18+0200 [-] message from master: attached
+2026-03-09 10:07:19+0200 [-] Starting Worker -- version: 4.3.0
+2026-03-09 10:07:19+0200 [-] recording hostname in twistd.hostname
+2026-03-09 10:07:19+0200 [-] message from master: attached
+2026-03-09 10:07:19+0200 [-] Got workerinfo from '__Janitor'
+2026-03-09 10:07:19+0200 [-] bot attached
+2026-03-09 10:07:19+0200 [-] Worker __Janitor attached to __Janitor
+2026-03-09 10:07:19+0200 [-] message from master: attached
+2026-03-09 10:07:19+0200 [-] BuildMaster is running
+2026-03-09 10:07:19+0200 [-] buildbotNetUsageData: sending {'installid': '213a9d24f2818483f12f4be461766bd2e8e471b1', 'versions': {'Python': '3.14.0', 'Buildbot': '4.3.0', 'Twisted': '25.5.0'}, 'platform': {'platform': 'Linux-6.17.1-300.fc43.x86_64-x86_64-with-glibc2.42', 'system': 'Linux', 'machine': 'x86_64', 'processor': '', 'python_implementation': 'CPython', 'version': '#1 SMP PREEMPT_DYNAMIC Mon', 'distro': 'fedora:'}, 'plugins': {'buildbot/worker/local/LocalWorker': 3, 'buildbot/config/builder/BuilderConfig': 15, 'buildbot/schedulers/basic/SingleBranchScheduler': 10, 'buildbot/schedulers/triggerable/Triggerable': 13, 'buildbot/schedulers/timed/Nightly': 2, 'buildbot/schedulers/forcesched/ForceScheduler': 1, 'buildbot/changes/gitpoller/GitPoller': 6, 'buildbot/steps/source/git/Git': 20, 'buildbot/steps/shell/ShellCommand': 244, 'buildbot/steps/transfer/FileDownload': 40, 'buildbot/steps/transfer/FileUpload': 10, 'buildbot/steps/shell/SetPropertyFromCommand': 241, 'buildbot/steps/shellsequence/ShellSequence': 34, 'buildbot/steps/trigger/Trigger': 20, 'buildbot/steps/master/SetProperty': 82, '>>buildbot/process/buildstep/ShellMixin': 15, 'buildbot/steps/master/MasterShellCommand': 1, 'buildbot/configurators/janitor/LogChunksJanitor': 1}, 'db': 'sqlite', 'mq': 'simple', 'www_plugins': ['waterfall_view', 'console_view', 'grid_view']}
+2026-03-09 10:07:20+0200 [-] buildbotNetUsageData: buildbot.net said: ok
+2026-03-09 10:07:33+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:07:36+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:07:56+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:08:16+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:08:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:08:36+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:08:42+0200 [-] Timing out client: IPv4Address(type='TCP', host='127.0.0.1', port=58260)
+2026-03-09 10:08:42+0200 [-] Timing out client: IPv4Address(type='TCP', host='127.0.0.1', port=58214)
+2026-03-09 10:08:42+0200 [-] Timing out client: IPv4Address(type='TCP', host='127.0.0.1', port=58232)
+2026-03-09 10:08:42+0200 [-] Timing out client: IPv4Address(type='TCP', host='127.0.0.1', port=58248)
+2026-03-09 10:08:42+0200 [-] Timing out client: IPv4Address(type='TCP', host='127.0.0.1', port=58228)
+2026-03-09 10:08:51+0200 [-] Initiating clean shutdown
+2026-03-09 10:08:51+0200 [-] No running jobs, starting shutdown immediately
+2026-03-09 10:08:51+0200 [-] doing housekeeping for master 1 fedora:/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master
+2026-03-09 10:08:52+0200 [-] (TCP Port 8010 Closed)
+2026-03-09 10:08:52+0200 [-] Stopping factory <buildbot.www.service.BuildbotSite object at 0x7fc3cc2f8050>
+2026-03-09 10:08:52+0200 [-] disconnecting old worker __Janitor now
+2026-03-09 10:08:52+0200 [-] Worker.detached(__Janitor)
+2026-03-09 10:08:52+0200 [-] releaseLocks(<LocalWorker '__Janitor'>): []
+2026-03-09 10:08:52+0200 [-] waiting for worker to finish disconnecting
+2026-03-09 10:08:52+0200 [-] disconnecting old worker Test_Worker now
+2026-03-09 10:08:52+0200 [-] Worker.detached(Test_Worker)
+2026-03-09 10:08:52+0200 [-] releaseLocks(<LocalWorker 'Test_Worker'>): []
+2026-03-09 10:08:52+0200 [-] waiting for worker to finish disconnecting
+2026-03-09 10:08:52+0200 [-] disconnecting old worker Linux_Worker now
+2026-03-09 10:08:52+0200 [-] Worker.detached(Linux_Worker)
+2026-03-09 10:08:52+0200 [-] releaseLocks(<LocalWorker 'Linux_Worker'>): []
+2026-03-09 10:08:52+0200 [-] waiting for worker to finish disconnecting
+2026-03-09 10:08:52+0200 [-] Worker __Janitor detached from __Janitor
+2026-03-09 10:08:52+0200 [-] Worker Test_Worker detached from ADDAC_tests
+2026-03-09 10:08:52+0200 [-] Worker Test_Worker detached from Accelerometer_tests
+2026-03-09 10:08:52+0200 [-] Worker Test_Worker detached from PMIC_tests
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from Test_Linux
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux-next
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux_stable_linux-6_1_y
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux-fast-test
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux-rohm-devel
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux_stable_linux-6_6_y
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux_stable_linux-6_12_y
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from Clean_database
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from Linux_Mainline
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux_stable_linux-rolling-stable
+2026-03-09 10:08:52+0200 [-] Worker Linux_Worker detached from linux_stable_linux-5_15_y
+2026-03-09 10:09:17+0200 [-] Ignoring SIGTERM, master is already shutting down.
+2026-03-09 10:11:02+0200 [-] Removing stale pidfile /home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/twistd.pid
+2026-03-09 10:11:02+0200 [-] Loading buildbot.tac...
+2026-03-09 10:11:02+0200 [-] Loaded.
+2026-03-09 10:11:02+0200 [-] twistd 25.5.0 (/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/bin/python3 3.14.0) starting up.
+2026-03-09 10:11:02+0200 [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2026-03-09 10:11:02+0200 [-] Starting BuildMaster -- buildbot.version: 4.3.0
+2026-03-09 10:11:02+0200 [-] Loading configuration from '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/master.cfg'
+2026-03-09 10:11:03+0200 [-] /home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/sandbox/lib64/python3.14/site-packages/buildbot/config/master.py:408: buildbot.warnings.ConfigWarning: `buildbotNetUsageData` is not configured and defaults to basic.
+	This parameter helps the buildbot development team to understand the installation base.
+	No personal information is collected.
+	Only installation software version info and plugin usage is sent.
+	You can `opt-out` by setting this variable to None.
+	Or `opt-in` for more information by setting it to "full".
+	
+2026-03-09 10:11:03+0200 [-] Setting up database with URL 'sqlite:/state.sqlite'
+2026-03-09 10:11:03+0200 [-] setting database journal mode to 'wal'
+2026-03-09 10:11:03+0200 [-] adding 15 new builders, removing 0
+2026-03-09 10:11:03+0200 [-] adding 6 new change_sources, removing 0
+2026-03-09 10:11:03+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-test_linux'
+2026-03-09 10:11:03+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_next'
+2026-03-09 10:11:03+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_mainline'
+2026-03-09 10:11:03+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_stable'
+2026-03-09 10:11:04+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_fast_test'
+2026-03-09 10:11:04+0200 [-] gitpoller: using workdir '/home/linuxtest/src/Linux-Driver-Testing/buildbot/master_root/master/gitpoller-workdir-linux_rohm_devel'
+2026-03-09 10:11:04+0200 [-] adding 26 new schedulers, removing 0
+2026-03-09 10:11:04+0200 [-] initializing www plugin 'waterfall_view'
+2026-03-09 10:11:04+0200 [-] initializing www plugin 'console_view'
+2026-03-09 10:11:04+0200 [-] initializing www plugin 'grid_view'
+2026-03-09 10:11:04+0200 [-] initializing www plugin 'waterfall_view'
+2026-03-09 10:11:04+0200 [-] initializing www plugin 'console_view'
+2026-03-09 10:11:04+0200 [-] initializing www plugin 'grid_view'
+2026-03-09 10:11:04+0200 [-] BuildbotSite starting on 8010
+2026-03-09 10:11:04+0200 [-] Starting factory <buildbot.www.service.BuildbotSite object at 0x7f46da8fdd30>
+2026-03-09 10:11:04+0200 [-] adding 3 new workers, removing 0
+2026-03-09 10:11:04+0200 [-] Starting Worker -- version: 4.3.0
+2026-03-09 10:11:04+0200 [-] recording hostname in twistd.hostname
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Got workerinfo from 'Test_Worker'
+2026-03-09 10:11:04+0200 [-] bot attached
+2026-03-09 10:11:04+0200 [-] I have a leftover directory 'tests' that is not being used by the buildmaster: you can delete it now
+2026-03-09 10:11:04+0200 [-] Worker Test_Worker attached to PMIC_tests
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Test_Worker attached to Accelerometer_tests
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Test_Worker attached to ADDAC_tests
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Starting Worker -- version: 4.3.0
+2026-03-09 10:11:04+0200 [-] recording hostname in twistd.hostname
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Got workerinfo from '__Janitor'
+2026-03-09 10:11:04+0200 [-] bot attached
+2026-03-09 10:11:04+0200 [-] Worker __Janitor attached to __Janitor
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Starting Worker -- version: 4.3.0
+2026-03-09 10:11:04+0200 [-] recording hostname in twistd.hostname
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Got workerinfo from 'Linux_Worker'
+2026-03-09 10:11:04+0200 [-] bot attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux_stable_linux-6_12_y
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux_stable_linux-6_1_y
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux-next
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux-fast-test
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux_stable_linux-6_6_y
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux-rohm-devel
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux_stable_linux-rolling-stable
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to Test_Linux
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to Linux_Mainline
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to Clean_database
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] Worker Linux_Worker attached to linux_stable_linux-5_15_y
+2026-03-09 10:11:04+0200 [-] message from master: attached
+2026-03-09 10:11:04+0200 [-] BuildMaster is running
+2026-03-09 10:11:04+0200 [-] buildbotNetUsageData: sending {'installid': '213a9d24f2818483f12f4be461766bd2e8e471b1', 'versions': {'Python': '3.14.0', 'Buildbot': '4.3.0', 'Twisted': '25.5.0'}, 'platform': {'platform': 'Linux-6.17.1-300.fc43.x86_64-x86_64-with-glibc2.42', 'system': 'Linux', 'machine': 'x86_64', 'processor': '', 'python_implementation': 'CPython', 'version': '#1 SMP PREEMPT_DYNAMIC Mon', 'distro': 'fedora:'}, 'plugins': {'buildbot/worker/local/LocalWorker': 3, 'buildbot/config/builder/BuilderConfig': 15, 'buildbot/schedulers/basic/SingleBranchScheduler': 10, 'buildbot/schedulers/triggerable/Triggerable': 13, 'buildbot/schedulers/timed/Nightly': 2, 'buildbot/schedulers/forcesched/ForceScheduler': 1, 'buildbot/changes/gitpoller/GitPoller': 6, 'buildbot/steps/source/git/Git': 20, 'buildbot/steps/shell/ShellCommand': 244, 'buildbot/steps/transfer/FileDownload': 40, 'buildbot/steps/transfer/FileUpload': 10, 'buildbot/steps/shell/SetPropertyFromCommand': 241, 'buildbot/steps/shellsequence/ShellSequence': 34, 'buildbot/steps/trigger/Trigger': 20, 'buildbot/steps/master/SetProperty': 82, '>>buildbot/process/buildstep/ShellMixin': 15, 'buildbot/steps/master/MasterShellCommand': 1, 'buildbot/configurators/janitor/LogChunksJanitor': 1}, 'db': 'sqlite', 'mq': 'simple', 'www_plugins': ['waterfall_view', 'console_view', 'grid_view']}
+2026-03-09 10:11:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:11:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:11:09+0200 [-] buildbotNetUsageData: buildbot.net said: ok
+2026-03-09 10:11:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:11:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:12:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:12:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:12:07+0200 [-] Timing out client: IPv4Address(type='TCP', host='127.0.0.1', port=42992)
+2026-03-09 10:12:07+0200 [-] Timing out client: IPv4Address(type='TCP', host='127.0.0.1', port=43010)
+2026-03-09 10:12:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:12:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:13:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:13:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:13:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:13:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:14:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:14:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:14:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:14:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:15:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:15:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:15:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:15:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:16:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:16:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:16:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:16:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:17:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:17:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:17:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:17:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:18:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:18:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:18:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:18:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:19:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:19:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:19:16+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:19:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:19:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:19:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:19:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:20:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:20:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:20:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:20:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:20:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:20:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:20:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:21:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:21:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:21:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:21:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:21:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:21:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:21:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:22:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:22:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:22:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:22:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:22:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:22:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:22:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:23:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:23:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:23:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:23:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:23:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:23:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:23:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:24:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:24:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:24:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:24:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:24:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:24:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:24:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:25:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:25:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:25:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:25:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:25:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:25:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:25:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:26:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:26:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:26:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:26:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:26:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:26:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:26:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:27:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:27:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:27:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:27:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:27:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:27:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:27:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:28:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:28:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:28:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:28:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:28:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:28:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:28:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:29:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:29:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:29:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:29:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:29:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:29:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:29:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:30:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:30:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:30:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:30:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:30:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:30:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:30:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:31:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:31:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:31:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:31:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:31:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:31:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:31:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:32:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:32:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:32:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:32:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:32:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:32:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:32:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:33:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:33:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:33:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:33:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:33:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:33:27+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 10:33:32+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 10:33:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:33:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:34:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:34:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:34:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:34:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:34:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:34:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:34:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:35:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 10:35:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 10:35:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:35:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:35:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:35:15+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
+2026-03-09 10:35:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:35:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:35:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:35:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:36:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:36:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:36:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:36:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:36:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:36:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:36:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:37:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:37:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:37:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:37:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:37:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:37:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:37:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:38:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:38:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:38:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:38:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:38:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:38:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:38:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:39:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:39:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:39:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:39:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:39:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:39:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:39:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:40:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:40:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:40:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:40:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:40:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:40:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:40:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:41:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:41:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:41:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:41:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:41:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:41:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:41:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:42:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:42:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:42:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:42:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:42:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:42:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:42:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:43:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 10:43:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 10:43:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:43:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
+2026-03-09 10:43:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:43:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:43:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:43:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:43:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:43:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:44:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:44:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:44:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:44:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:44:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:44:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:44:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:45:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:45:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:45:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:45:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:45:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:45:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:45:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:46:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:46:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:46:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:46:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:46:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:46:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:46:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:47:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:47:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:47:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:47:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:47:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:47:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:47:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:48:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:48:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:48:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:48:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:48:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:48:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:48:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:49:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:49:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:49:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:49:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:49:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:49:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:49:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:50:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:50:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:50:06+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:50:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:50:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:50:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:50:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:51:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 10:51:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 10:51:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
+2026-03-09 10:51:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:51:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:51:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:51:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:51:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:51:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:51:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:52:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:52:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:52:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:52:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:52:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:52:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:52:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:53:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:53:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:53:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:53:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:53:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:53:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:53:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:54:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:54:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:54:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:54:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:54:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:54:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:54:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:55:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:55:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:55:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:55:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:55:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:55:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:55:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:56:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:56:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:56:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:56:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:56:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:56:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:56:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:57:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:57:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:57:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:57:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:57:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:57:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:57:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:58:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:58:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:58:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:58:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:58:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:58:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:58:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:59:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 10:59:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 10:59:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
+2026-03-09 10:59:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 10:59:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:59:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:59:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:59:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 10:59:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 10:59:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:00:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:00:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:00:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:00:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:00:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:00:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:00:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:01:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:01:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:01:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:01:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:01:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:01:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:01:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:02:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:02:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:02:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:02:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:02:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:02:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:02:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:03:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:03:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:03:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:03:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:03:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:03:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:03:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:04:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:04:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:04:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:04:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:04:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:04:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:04:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:05:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:05:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:05:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:05:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:05:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:05:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:05:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:06:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:06:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:06:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:06:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:06:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:06:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:06:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:07:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 11:07:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 11:07:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
+2026-03-09 11:07:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:07:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:07:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:07:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:07:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:07:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:07:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:08:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:08:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:08:07+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:08:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:08:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:08:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:08:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:09:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:09:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:09:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:09:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:09:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:09:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:09:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:10:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:10:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:10:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:10:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:10:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:10:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:10:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:11:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:11:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:11:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:11:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:11:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:11:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:11:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:12:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:12:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:12:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:12:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:12:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:12:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:12:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:13:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:13:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:13:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:13:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:13:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:13:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:13:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:14:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:14:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:14:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:14:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:14:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:14:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:14:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:15:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 11:15:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 11:15:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
+2026-03-09 11:15:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:15:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:15:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:15:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:15:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:15:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:15:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:16:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:16:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:16:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:16:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:16:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:16:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:16:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:17:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:17:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:17:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:17:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:17:25+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:17:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:17:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:18:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:18:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:18:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:18:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:18:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:18:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:18:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:19:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:19:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:19:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:19:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:19:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:19:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:19:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:20:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:20:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:20:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:20:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:20:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:20:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:20:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:21:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:21:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:21:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:21:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:21:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:21:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:21:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:22:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:22:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:22:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:22:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:22:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:22:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:22:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:23:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
+2026-03-09 11:23:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
+2026-03-09 11:23:04+0200 [-] gitpoller: processing changes from "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
+2026-03-09 11:23:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:23:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:23:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:23:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:23:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:23:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:23:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:24:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:24:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:24:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:24:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:24:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:24:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:24:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:25:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:25:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:25:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:25:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:25:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:25:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:25:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:26:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:26:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:26:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:26:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:26:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:26:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:26:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:27:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:27:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:27:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:27:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:27:25+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:27:44+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:27:45+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:28:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:28:05+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:28:05+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:28:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:28:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:28:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:28:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:29:04+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:29:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git"
+2026-03-09 11:29:04+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:29:24+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:29:24+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
+2026-03-09 11:29:44+0200 [-] gitpoller: processing changes from "https://github.com/RohmSemiconductor/Linux-Kernel-PMIC-Drivers.git"
+2026-03-09 11:29:45+0200 [-] gitpoller: processing changes from "https://github.com/KalleNiemi/linux-fast-test.git"
