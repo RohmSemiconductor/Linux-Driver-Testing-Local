@@ -1,8 +1,27 @@
-compilers
-
-nfs
-nfs.zip
-
-sandbox
-
 __pycache__
+
+compilers
+nfs
+nfs.*
+
+buildbot/master_root/sandbox
+
+# Pollers
+gitpoller-workdir-*
+
+# Workers
+**/master/workers/*
+!**/master/workers/Test_Worker
+
+# Test results
+**/master/workers/Test_Worker/tests/test-results
+
+# Log files
+*.log
+
+twistd.pid
+twistd.hostname
+**/master/master.cfg.sample
+**/master/state.sqlite
+**/master/workers/**/kernel_modules.py
+**/master/workers/Test_Worker/twisted.hostname
