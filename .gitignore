@@ -17,7 +17,7 @@ gitpoller-workdir-*
 **/master/workers/Test_Worker/tests/test-results
 
 # Log files
-*.log
+*.log*
 
 twistd.pid
 twistd.hostname
