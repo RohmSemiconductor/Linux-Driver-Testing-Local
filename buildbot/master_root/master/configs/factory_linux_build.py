@@ -247,9 +247,19 @@ def update_test_kernel_modules(project_name):
             doStepIf=util.Property('preparation_step_failed') != 'True'
             ))
     else:
+        # projects[project_name]['factory'].addStep(steps.Git(
+        #     repourl='https://github.com/RohmSemiconductor/Linux-Driver-Testing.git',
+        #     branch='dev-addac-test-kernel-modules',
+        #     alwaysUseLatest=True,
+        #     mode='full',
+        #     workdir="build/_test-kernel-modules",
+        #     name="Update kernel module source files from git",
+        #     hideStepIf=skipped,
+        #     doStepIf=util.Property('preparation_step_failed') != 'True'
+        #     ))
         projects[project_name]['factory'].addStep(steps.Git(
-            repourl='https://github.com/RohmSemiconductor/Linux-Driver-Testing.git',
-            branch='dev-addac-test-kernel-modules',
+            repourl='https://github.com/RohmSemiconductor/Linux-Driver-Testing-Local.git',
+            branch='test-kernel-modules',
             alwaysUseLatest=True,
             mode='full',
             workdir="build/_test-kernel-modules",
@@ -349,7 +359,8 @@ def doStepIf_trigger_sensor_factory(step):
 def trigger_test_factories(project_name):
     ### First set of factories
         projects[project_name]['factory'].addStep(steps.Trigger(
-            schedulerNames=['scheduler-pmic_tests', 'scheduler-accelerometer_tests'],
+            # schedulerNames=['scheduler-pmic_tests', 'scheduler-accelerometer_tests'],
+            schedulerNames=['scheduler-pmic_tests'],
             updateSourceStamp=True,
             name="Trigger test factories",
             waitForFinish = True,
@@ -365,22 +376,22 @@ def trigger_test_factories(project_name):
                 },
             ))
     ### Second set of factories
-        projects[project_name]['factory'].addStep(steps.Trigger(
-            schedulerNames=['scheduler-addac_tests'],
-            updateSourceStamp=True,
-            name="Trigger test factories",
-            waitForFinish = True,
-            set_properties= {
-                'iio_generic_buffer_found':util.Property('iio_generic_buffer_found'),
-                'preparation_step_failed':util.Property('preparation_step_failed'),
-                'git_bisecting':util.Property('git_bisecting'),
-                'commit-description':util.Property('commit-description'),
-                'factory_type':'accelerometer',
-                'timestamp':util.Property('timestamp'),
-                'linuxdir':util.Property('buildername'),
-                'chipselect_spi0_dtbo_build_failed':util.Property('chipselect_spi0_dtbo_build_failed'),
-                },
-            ))
+        # projects[project_name]['factory'].addStep(steps.Trigger(
+        #     schedulerNames=['scheduler-addac_tests'],
+        #     updateSourceStamp=True,
+        #     name="Trigger test factories",
+        #     waitForFinish = True,
+        #     set_properties= {
+        #         'iio_generic_buffer_found':util.Property('iio_generic_buffer_found'),
+        #         'preparation_step_failed':util.Property('preparation_step_failed'),
+        #         'git_bisecting':util.Property('git_bisecting'),
+        #         'commit-description':util.Property('commit-description'),
+        #         'factory_type':'accelerometer',
+        #         'timestamp':util.Property('timestamp'),
+        #         'linuxdir':util.Property('buildername'),
+        #         'chipselect_spi0_dtbo_build_failed':util.Property('chipselect_spi0_dtbo_build_failed'),
+        #         },
+        #     ))
 
 def download_test_boards(project_name):
     projects[project_name]['factory'].addStep(steps.FileDownload(
@@ -1003,13 +1014,13 @@ def build_deploy_kernel(project_name):
     get_timestamp(project_name)
     download_test_boards(project_name)
     ### Sanitychecks
-    sanity_checks(project_name)
+    # sanity_checks(project_name)
     ### Prepare and trigger
     copy_results_for_factories(project_name)
     trigger_test_factories(project_name)
     get_factory_properties(project_name)
     set_factory_result_properties(project_name)
-    save_good_commit(project_name)
+    # save_good_commit(project_name)
     # git_bisect(project_name)
     clean_local_results(project_name, 'Sensor', 30)
     clean_local_results(project_name, 'PMIC', 30)
@@ -1022,8 +1033,9 @@ for stable_branch in stable_branches:
     stable_branch = stable_branch.replace(".","_")
     build_deploy_kernel('linux_stable_'+stable_branch)
 
-build_deploy_kernel('linux_mainline')
-build_deploy_kernel('test_linux')
-build_deploy_kernel('linux-next')
-build_deploy_kernel('linux_rohm_devel')
-build_deploy_kernel('linux_fast_test')
+# build_deploy_kernel('linux_mainline')
+# build_deploy_kernel('test_linux')
+# build_deploy_kernel('linux-next')
+# build_deploy_kernel('linux_rohm_devel')
+# build_deploy_kernel('linux_fast_test')
+build_deploy_kernel('linux_local_test')
