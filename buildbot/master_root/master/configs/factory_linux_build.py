@@ -8,7 +8,9 @@ from paths import *
 from factory_helpers import *
 
 def check_boneblack_old_dir(step):
-    if step.getProperty('project') == 'linux_fast_test':
+    projects = ["linux_fast_test", "linux_local_test"]
+
+    if step.getProperty('project') in projects:
         return 'False'
     elif re.search('^next.*', step.getProperty('commit-description')):    #check for linux next
         return 'False'
