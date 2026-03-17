@@ -13,7 +13,8 @@ factory_linux_next = util.BuildFactory()
 factory_linux_mainline = util.BuildFactory()
 factory_linux_stable = util.BuildFactory()
 factory_linux_rohm_devel = util.BuildFactory()
-factory_linux_fast_test = util.BuildFactory()
+# factory_linux_fast_test = util.BuildFactory()
+factory_linux_local_test = util.BuildFactory()
 ###### PROJECTS
 # To trigger gitpoller on tag changes, use tag_change instead of ['branch_name'] in the 'branches'
 projects = {}
@@ -99,14 +100,26 @@ for stable_branch in stable_branches:
     'factory': stable_factory,
 }
 
-projects['linux_fast_test']={
-    'name': 'linux_fast_test',
-    'branches': ['main'],
-    'repo_git': 'https://github.com/KalleNiemi/linux-fast-test.git',
+# projects['linux_fast_test']={
+#     'name': 'linux_fast_test',
+#     'branches': ['main'],
+#     'repo_git': 'https://github.com/KalleNiemi/linux-fast-test.git',
+#     'polling': 20,
+#     'treeStableTimer': 30,
+#     'scheduler_name': 'scheduler-fast-test',
+#     'builderNames': ["linux-fast-test"],
+#     'workerNames': ["Linux_Worker"],
+#     'factory': factory_linux_fast_test,
+# }
+
+projects['linux_local_test']={
+    'name': 'linux_local_test',
+    'branches': ['kernel'],
+    'repo_git': 'https://github.com/RohmSemiconductor/Linux-Driver-Testing-Local.git',
     'polling': 20,
     'treeStableTimer': 30,
-    'scheduler_name': 'scheduler-fast-test',
-    'builderNames': ["linux-fast-test"],
+    'scheduler_name': 'scheduler-local-test',
+    'builderNames': ["linux-local-test"],
     'workerNames': ["Linux_Worker"],
-    'factory': factory_linux_fast_test,
+    'factory': factory_linux_local_test,
 }
