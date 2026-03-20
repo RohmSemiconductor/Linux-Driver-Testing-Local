@@ -1,6 +1,9 @@
 /dts-v1/;
 /plugin/;
 
+#include <dt-bindings/pinctrl/omap.h>
+#include <dt-bindings/pinctrl/am33xx.h>
+
 /{ /* this is our device tree overlay root node */
 
 	compatible = "ti,beaglebone", "ti,beaglebone-black";
@@ -22,8 +25,13 @@
 					b[5] = 1 => receiver active
 					b[6] = 1 => slew control slow
 				*/
-          			0x158 0x72 /* spi0_d1.i2c1_sda */ 
-          			0x15C 0x72 /* spi0_cs0.i2c1_sdl */
+
+				AM33XX_PADCONF(AM335X_PIN_SPI0_D1, PIN_INPUT_PULLUP, MUX_MODE7)
+				AM33XX_PADCONF(AM335X_PIN_SPI0_CS0, PIN_INPUT_PULLUP, MUX_MODE7)
+				AM33XX_PADCONF(AM335X_PIN_GPMC_BEN1, PIN_INPUT_PULLDOWN, MUX_MODE7)
+
+/*				0x158 0x72	*/ /* spi0_d1.i2c1_sda */
+/*				0x15C 0x72	*/ /* spi0_cs0.i2c1_sdl */
 /*				0xA4 0x7    */ /* pin 46, GPIO 2_7 mode 7 */
 /*				0xA0 0x7    */ /* pin 45, GPIO 2_6 mode 7 */
 /*				0x0c 0x7    */ /* pin 3, GPIO 1_6 mode 7 */
@@ -56,6 +64,8 @@
 
 
 			bdpmic: bd71828@4b {
+				pinctrl-0 = <&i2c1_pins>;
+				pinctrl-names = "default";
 				compatible = "rohm,bd71828";
 				reg = <0x4b>;
 				/* Let's try using GPIO1_29 as irq pin */
