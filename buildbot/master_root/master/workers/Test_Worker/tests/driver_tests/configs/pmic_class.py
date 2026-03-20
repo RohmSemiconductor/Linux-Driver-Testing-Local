@@ -719,3 +719,77 @@ class pmic:
             print("Regulator voltage calculation is not implemented yet!")
 
         return mv
+
+    # Returns the GPIO number if successful, None otherwise.
+    #
+    def _gpio_export_via_sysfs(self, command, label, index):
+        stdout, stderr, returncode = command.run(f"grep -rls {label} /sys/class/gpio/gpiochip* | sed \"s/[^0-9]//g\"")
+        if returncode != 0:
+            return None
+
+        num = f"{int(stdout[0]) + index}"
+        print(f"_gpio_export_via_sysfs: gpio{num}")
+
+        stdout, stderr, returncode = command.run(f"echo {num} > /sys/class/gpio/export")
+        if returncode != 0:
+            print(f"_gpio_export_via_sysfs: {returncode} {stdout} {stderr}")
+            return None
+
+        return num
+
+    def _gpio_unexport_via_sysfs(self, command, num):
+        stdout, stderr, returncode = command.run(f"echo {num} > /sys/class/gpio/unexport")
+
+    # Returns True if successful, False otherwise.
+    #
+    def _gpio_set_value_via_sysfs(self, command, num, value):
+        stdout, stderr, returncode = command.run(f"echo out > /sys/class/gpio/gpio{num}/direction")
+        if returncode != 0:
+            return False
+
+        stdout, stderr, returncode = command.run(f"echo {value} > /sys/class/gpio/gpio{num}/value")
+        if returncode != 0:
+            return False
+
+        return True
+
+    # Returns the GPIO value if successful, None otherwise.
+    #
+    def _gpio_get_value_via_sysfs(self, command, num):
+        stdout, stderr, returncode = command.run(f"cat /sys/class/gpio/gpio{num}/value")
+        if returncode != 0:
+            return None
+
+        value = int(stdout[0])
+        print(f"_gpio_get_value_via_sysfs: {value}")
+
+        return value
+
+    def gpio_get_value_via_sysfs(self, command, dev_label, dev_index, test_label, test_index, expect):
+        self.result["stage"] = "gpio_get_value_via_sysfs"
+
+        self.result["expect"] = expect
+        self.result["return"] = None
+
+        dev_num = self._gpio_export_via_sysfs(command, dev_label, dev_index)
+        if dev_num == None:
+            print("gpio_get_value_via_sysfs: no dev_num")
+            return self.result
+
+        test_num = self._gpio_export_via_sysfs(command, test_label, test_index)
+        if test_num == None:
+            print("gpio_get_value_via_sysfs: no test_num")
+            self._gpio_unexport_via_sysfs(command, dev_num)
+            return self.result
+
+        if not self._gpio_set_value_via_sysfs(command, dev_num, expect):
+            print("gpio_get_value_via_sysfs: could not set value")
+            self._gpio_unexport_via_sysfs(command, dev_num)
+            self._gpio_unexport_via_sysfs(command, test_num)
+            return self.result
+
+        self.result["return"] = self._gpio_get_value_via_sysfs(command, test_num)
+        self._gpio_unexport_via_sysfs(command, dev_num)
+        self._gpio_unexport_via_sysfs(command, test_num)
+
+        return self.result

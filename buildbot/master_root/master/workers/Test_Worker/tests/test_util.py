@@ -646,6 +646,13 @@ def _assert_addac_test_stable_voltage(result, report_file, summary):
 
     _assert_test(result, report_file, summary)
 
+def _assert_gpio_get_value_via_sysfs(result, report_file, summary):
+    if result['return'] != result['expect']:
+        print(f'Unexpected value from GPIO: got {result['return']}, expected {result['expect']}',
+            end='', file=report_file)
+
+    _assert_test(result, report_file, summary)
+
 
 def check_result(result):
     if result['result_dir'] == 'PMIC':
@@ -748,6 +755,10 @@ def check_result(result):
         elif result['stage'] == 'set_rtc_from_bbb_sys_time':
             print(test_info['rtc']['set_rtc_from_bbb_sys_time'])
             _assert_pmic_set_rtc_from_bbb_sys_time(result, report_file, summary)
+
+        elif result['stage'] == 'gpio_get_value_via_sysfs':
+            # print(test_info['pmic']['read_gpio'])
+            _assert_gpio_get_value_via_sysfs(result, report_file, summary)
 
     elif result['type'] == 'Sensor':
         if result['stage'] == 'test_gsel':
