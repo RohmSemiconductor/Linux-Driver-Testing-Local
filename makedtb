@@ -1,101 +1,90 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Fixed output directory
-OUTPUT_DIR="output"
+OUTPUT_DIR="."
+
 CPP=cpp
 
-# Function to create the output directory if it doesn't exist
-create_output_directory() {
-	if [ ! -d "$OUTPUT_DIR" ]; then
-		mkdir -p "$OUTPUT_DIR"
-	fi
-}
-
-# Display help menu
-display_help() {
-	echo "Usage: $0 --input input_filename.dts --output output_format(dtb, dts, or dtbo)"
-	echo "Options:"
-	echo "  -i, --input	Input DTS file"
-	echo "  -o, --output	Output format (dtb, dts, or dtbo)"
-:	echo "  -h, --help	Display this help menu"
-	exit 1
-}
-
-# Initialize variables
 INPUT_FILE=""
-OUTPUT_FORMAT="dtb"
+OUTPUT_NAME=""
+OUTPUT_FORMAT="dtbo"
+
+help() {
+	echo "Usage: $0 --input <file> --name <file> [--output <dtb|dts|dtbo>]"
+	echo ""
+	echo "Options:"
+	echo "  -i, --input         input .dts file"
+	echo "  -n, --name          filename for output; without the extension"
+	echo "  -o, --output        output format; defaults to $OUTPUT_FORMAT"
+	echo "  -h, --help          display this help and exit"
+	exit $1
+}
+
+if [ "$#" -le 2 ]; then
+	help 1
+fi
 
 # Parse command line arguments
+#
 while [[ $# -gt 0 ]]; do
 	case $1 in
 		-i | --input )
 			INPUT_FILE=$2
 			shift 2
 			;;
+		-n | --name )
+			OUTPUT_NAME=$2
+			shift 2
+			;;
 		-o | --output )
 			OUTPUT_FORMAT=$2
 			shift 2
 			;;
-		-n | --output_name )
-			OUTPUT_NAME=$2
-			shift 2
-			;;
 		-h | --help )
-			display_help
+			help 0
 			;;
 		* )
-			display_help
+			help 1
 			;;
 	esac
 done
 
-# Check if input file and output format are provided
-if [ -z "$INPUT_FILE" ] || [ -z "$OUTPUT_FORMAT" ] || [ -z "$OUTPUT_NAME" ]; then
-	echo "Error: Please provide both input file and output name and format."
-	display_help
+# Check if both input file and output file are provided
+#
+if [ -z "$INPUT_FILE" ] || [ -z "$OUTPUT_NAME" ]; then
+	echo "error: no input file or output name"
+	exit 1
+fi
+
+# Check if input file exists
+#
+if [ ! -f "$INPUT_FILE" ]; then
+	echo "error: input file not found: '$INPUT_FILE'"
+	exit 1
 fi
 
 # Check if output format is valid
+#
 case $OUTPUT_FORMAT in
 	dtb | dtbo | dts )
 		;;
 	* )
-		echo "Error: Invalid output format. Please specify 'dtb', 'dts', or 'dtbo'."
-		display_help
+		echo "error: invalid output format: '$OUTPUT_FORMAT'"
+		exit 1
 		;;
 esac
 
-# Check if input file exists
-if [ ! -f "$INPUT_FILE" ]; then
-	echo "Error: Input file '$INPUT_FILE' not found."
-	exit 1
-fi
+OUTPUT_FILE="$OUTPUT_NAME.$OUTPUT_FORMAT"
 
-# Create or clear the output directory
-create_output_directory
-
-# Determine output file name based on output format
-case $OUTPUT_FORMAT in
-	dtb )
-		OUTPUT_EXTENSION=".dtb"
-		;;
-	dtbo )
-		OUTPUT_EXTENSION=".dtbo"
-		;;
-	dts )
-		OUTPUT_EXTENSION=".dts"
-		;;
-esac
-
-# Remove extension from input file name
-OUTPUT_FILE="$OUTPUT_NAME$OUTPUT_EXTENSION"
+OUTPUT_FILE_DIR=$(dirname $OUTPUT_FILE)
+mkdir -p "$OUTPUT_DIR/$OUTPUT_FILE_DIR"
 
 # Preprocess DTS file with arm-none-eabi-cpp and pipe the output to dtc to generate DTB or DTBO file
+#
 if [ "$OUTPUT_FORMAT" = "dts" ]; then
-#	arm-none-eabi-cpp -nostdinc -I include -undef -x assembler-with-cpp "$INPUT_FILE" "$OUTPUT_DIR/$OUTPUT_FILE"
+	# arm-none-eabi-cpp -nostdinc -I include -undef -x assembler-with-cpp "$INPUT_FILE" "$OUTPUT_DIR/$OUTPUT_FILE"
 	$CC$CPP -nostdinc -I $KERNEL_DIR/include -undef -x assembler-with-cpp "$INPUT_FILE" "$OUTPUT_DIR/$OUTPUT_FILE"
 else
-#	arm-none-eabi-cpp -nostdinc -I include -undef -x assembler-with-cpp "$INPUT_FILE" | dtc -O dtb -o "$OUTPUT_DIR/$OUTPUT_FILE" -@
-	$CC$CPP -nostdinc -I $KERNEL_DIR/include -undef -x assembler-with-cpp "$INPUT_FILE" | dtc -O dtb -o "$OUTPUT_FILE" -@
+	# arm-none-eabi-cpp -nostdinc -I include -undef -x assembler-with-cpp "$INPUT_FILE" | dtc -O dtb -o "$OUTPUT_DIR/$OUTPUT_FILE" -@
+	$CC$CPP -nostdinc -I $KERNEL_DIR/include -undef -x assembler-with-cpp "$INPUT_FILE" | dtc -O dtb -o "$OUTPUT_DIR/$OUTPUT_FILE" -@
 fi
-
