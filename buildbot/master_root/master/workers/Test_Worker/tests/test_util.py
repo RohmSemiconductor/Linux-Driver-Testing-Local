@@ -431,7 +431,7 @@ def _assert_pmic_tune_register_run(result, report_file, summary):
     _assert_test(result, report_file, summary)
 
 def _assert_pmic_voltage_run(result, report_file, summary):
-    voltage_check_PMIC = ('bd9576', 'bd96801', 'bd96802', 'bd96805', 'bd96806')
+    voltage_check_PMIC = ('bd9573', 'bd9576', 'bd96801', 'bd96802', 'bd96805', 'bd96806')
     if result['product'] in voltage_check_PMIC:
         if result['expect'] != result['return']:
             print( "Voltage run failed (voltage check): Regulator "+result['regulator']+": Received: "+str(result['return'])+", Expected: "+str(result['expect'])+"\n", end='', file=report_file)
