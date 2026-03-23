@@ -43,7 +43,7 @@ class GenerateStagesCommand(buildstep.ShellMixin, steps.BuildStep):
             if self.test_type == "pmic":
                 self.build.addStepsAfterCurrentStep([steps.SetPropertyFromCommand(
                     command=["pytest","--lg-log","/tmp/rohm_linux_driver_tests/temp_results_PMIC/",
-                             "--lg-env="+self.test_board+".yaml",self.product+"/"+stage],
+                             "--lg-env="+self.test_board+".yaml","--board="+self.test_board, self.product+"/"+stage],
                     name=self.product+": "+stage,
                     workdir="../tests/driver_tests",
                     doStepIf=util.Property(self.product+'_do_steps') == 'True',

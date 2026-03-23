@@ -15,6 +15,8 @@ def pytest_addoption(parser):
     parser.addoption("--kunit_test", action="store", default="linear_ranges", help="my option: linear_ranges or iio_gts_test")
     parser.addoption("--result_dir", action="store", default="linux", help="my option: linux, PMIC, or sensor")
 
+    parser.addoption("--board", action="store", default="", help="Name for development board")
+
 @pytest.fixture
 def type(request):
     return request.config.getoption("--type")
@@ -36,3 +38,7 @@ def kunit_test(request):
 @pytest.fixture
 def result_dir(request):
     return request.config.getoption("--result_dir")
+
+@pytest.fixture
+def board(request):
+    return request.config.getoption("--board")
