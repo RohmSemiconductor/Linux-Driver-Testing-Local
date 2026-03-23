@@ -227,6 +227,16 @@ And reads the component's register via I2C to assert that disabling was succesfu
 """
 +test_info['footer']
 ,
+"gpio_get_value_via_sysfs":test_info["header"]+
+"""
+GPIO test:
+This test is done using the GPIO sysfs interface.
+
+This test sets the given GPIO pin to the expected value, reads the corresponding
+GPIO pin on the test board, and compares the results.
+"""
++test_info["footer"]
+,
 }
 
 ### /PMIC TESTS
@@ -279,6 +289,16 @@ This stage sets the given RTC to BBB systemtime.
 RTC time and BB systemtime is fetched in "since epoch" format and compared.
 """
 +test_info['footer']
+,
+"rtc_set_and_test_alarm":test_info["header"]+
+"""
+RTC test:
+This test id one using the RTC sysfs interface.
+
+This test sets an RTC alarm using the given RTC, and then compares the interrupt
+counts before and after the alarm.
+"""
++test_info["footer"]
 ,
     ## /PMIC RTC TESTS
 }

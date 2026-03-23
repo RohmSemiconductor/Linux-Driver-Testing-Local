@@ -769,11 +769,11 @@ def check_result(result):
             _assert_pmic_set_rtc_from_bbb_sys_time(result, report_file, summary)
 
         elif result["stage"] == "rtc_set_and_test_alarm":
-            # print(test_info["rtc"]["rtc_set_and_test_alarm"])
+            print(test_info["rtc"]["rtc_set_and_test_alarm"])
             _assert_rtc_set_and_test_alarm(result, report_file, summart)
 
         elif result["stage"] == "gpio_get_value_via_sysfs":
-            # print(test_info["pmic"]["read_gpio"])
+            print(test_info["pmic"]["gpio_get_value_via_sysfs"])
             _assert_gpio_get_value_via_sysfs(result, report_file, summary)
 
     elif result['type'] == 'Sensor':
