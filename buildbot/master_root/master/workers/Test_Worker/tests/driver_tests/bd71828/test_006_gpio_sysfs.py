@@ -16,7 +16,7 @@ HALL = 3
 # board. In the BeagleBone reference manual, P9_12 is labeled as GPIO1_28,
 # but it is actually GPIO0_28 for some reason.
 
-def test_999_gpio_sysfs(command):
+def test_006_gpio_sysfs(command):
     result = bd71828.gpio_get_value_via_sysfs(command, "gpio-0-31", 28, "bd71828-gpio", HALL, 0)
     check_result(result)
 

@@ -655,6 +655,9 @@ def _assert_gpio_get_value_via_sysfs(result, report_file, summary):
 
 
 def check_result(result):
+    report_file = None
+    summary = None
+
     if result['result_dir'] == 'PMIC':
         report_file = open('/tmp/rohm_linux_driver_tests/temp_results_PMIC/temp_results.txt', 'a', encoding='utf-8')
         summary = open('/tmp/rohm_linux_driver_tests/temp_results/summary.txt', 'a', encoding='utf-8')
@@ -668,8 +671,10 @@ def check_result(result):
         report_file = open('/tmp/rohm_linux_driver_tests/temp_results/temp_results.txt', 'a', encoding='utf-8')
         summary = open('/tmp/rohm_linux_driver_tests/temp_results/summary.txt', 'a', encoding='utf-8')
 
-    report_file.seek(0,2)
-    summary.seek(0,2)
+    if report_file:
+        report_file.seek(0,2)
+    if summary:
+        summary.seek(0,2)
 
     if result['type'] == 'generic':
         if result['stage'] == 'ip_power': #NOT IN USE CURRENTLY
