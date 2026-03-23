@@ -113,3 +113,58 @@ class rtc:
         self.result['expect'] = date
 
         return self.result
+
+
+    # Returns the interrupt count if successful, None otherwise.
+    #
+    def _rtc_get_interrupt_count(self, command, rtc_name):
+        stdout, stderr, returncode = command.run(f"grep {rtc_name} /proc/interrupts | awk '{{print $2}}'")
+        if returncode != 0:
+            return None
+
+        count = int(stdout[0])
+        print(f"_rtc_get_interrupt_count: {count}")
+
+        return count
+
+    # Returns True if successful, False otherwise
+    #
+    def _rtc_set_alarm_for_1s(self, command, rtc_name):
+        stdout, stderr, returncode = command.run(f"grep -rls {rtc_name} /sys/class/rtc/rtc* | sed \"s/[^0-9]//g\"")
+        if returncode != 0:
+            return False
+
+        num = int(stdout[0])
+
+        stdout, stderr, returncode = command.run(f"echo +1 > /sys/class/rtc/rtc{num}/wakealarm")
+        if returncode != 0:
+            return False
+
+        return True
+
+    def rtc_set_and_test_alarm(self, command, rtc_name):
+        self.result["stage"] = "rtc_set_and_test_alarm"
+
+        self.result["expect"] = 0
+        self.result["return"] = None
+
+        count_before = self._rtc_get_interrupt_count(command, rtc_name)
+        if count_before == None:
+            print("rtc_set_and_test_alarm: no count_before")
+            return self.result
+
+        self.result["expect"] = count_before + 1
+
+        if not self._rtc_set_alarm_for_1s(command, rtc_name):
+            return self.result
+
+        sleep(1)
+
+        count_after = self._rtc_get_interrupt_count(command, rtc_name)
+        if count_after == None:
+            print("rtc_set_and_test_alarm: no count_after")
+            return self.result
+
+        self.result["expect"] = count_after
+
+        return self.result

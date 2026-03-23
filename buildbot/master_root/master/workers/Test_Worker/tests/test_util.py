@@ -646,6 +646,13 @@ def _assert_addac_test_stable_voltage(result, report_file, summary):
 
     _assert_test(result, report_file, summary)
 
+def _assert_rtc_set_and_test_alarm(result, report_file, summary):
+    if result["return"] == None or result["return"] != result["expect"]:
+        print(f'Interrupt count mismatch: got {result['return']}, expected {result['expect']}',
+            end='', file=report_file)
+
+    _assert_test(result, report_file, summary)
+
 def _assert_gpio_get_value_via_sysfs(result, report_file, summary):
     if result['return'] != result['expect']:
         print(f'Unexpected value from GPIO: got {result['return']}, expected {result['expect']}',
@@ -761,8 +768,12 @@ def check_result(result):
             print(test_info['rtc']['set_rtc_from_bbb_sys_time'])
             _assert_pmic_set_rtc_from_bbb_sys_time(result, report_file, summary)
 
-        elif result['stage'] == 'gpio_get_value_via_sysfs':
-            # print(test_info['pmic']['read_gpio'])
+        elif result["stage"] == "rtc_set_and_test_alarm":
+            # print(test_info["rtc"]["rtc_set_and_test_alarm"])
+            _assert_rtc_set_and_test_alarm(result, report_file, summart)
+
+        elif result["stage"] == "gpio_get_value_via_sysfs":
+            # print(test_info["pmic"]["read_gpio"])
             _assert_gpio_get_value_via_sysfs(result, report_file, summary)
 
     elif result['type'] == 'Sensor':
