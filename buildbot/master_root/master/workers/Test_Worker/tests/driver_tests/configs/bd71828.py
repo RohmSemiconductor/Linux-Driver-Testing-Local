@@ -9,7 +9,12 @@ data={
     'sys_rtc':          'omap_rtc',
     'component_rtc':    'bd70528-rtc',
     'rtc_reset':        '2006-08-24 00:00:00',
-    },
+},
+
+"gpio": {
+    "label": "bd71828-gpio",
+    "index": 3 # HALL
+},
 
 ### 'debug' is to disable vrfault at sanitycheck stage
 
