@@ -295,41 +295,81 @@ class pmic:
         finally:
             return self.result
 
-    def regulator_enable(self,regulator,command):
+    def regulator_enable(self, regulator, command, nap=0.2):
         self.result['stage'] = 'regulator_enable'
         self.result['regulator'] = regulator
         self.result['expect'] = self.board.data['regulators'][regulator]['regulator_en_bitmask']
 
-        command.run("echo 1 > /sys/kernel/mva_test/regulators/"+self.board.data['regulators'][regulator]['name']+"_en")
-        sleep(0.2)
-        stdout, stderr, returncode = command.run("i2cget -y -f "+str(self.board.data['i2c']['bus'])+" "+str(hex(self.board.data['i2c']['address']))+" "+str(hex(self.board.data['regulators'][regulator]['regulator_en_address'])))
+        name = self.board.data['regulators'][regulator]['name']
+        bus = self.board.data['i2c']['bus']
+        addr = self.board.data['i2c']['address']
+        en_addr = self.board.data['regulators'][regulator]['regulator_en_address']
+        en_mask = self.board.data['regulators'][regulator]['regulator_en_bitmask']
+
+        print(f"regulator_enable: {regulator}")
+        print(f"                  name     {name}")
+        print(f"                  bus      {bus}")
+        print(f"                  addr     {addr:#x}")
+        print(f"                  en_addr  {en_addr:#x}")
+        print(f"                  en_mask  {en_mask:#08b}")
+
+        command.run(f"echo 1 > /sys/kernel/mva_test/regulators/{name}_en")
+        sleep(nap)
+
+        stdout, stderr, returncode = command.run(f"i2cget -y -f {bus} {addr:#x} {en_addr:#x}")
         try:
             i2creturn = int(stdout[0],0)
-            regulator_en_status = i2creturn & self.board.data['regulators'][regulator]['regulator_en_bitmask']
-            self.result['return'] = i2creturn & self.board.data['regulators'][regulator]['regulator_en_bitmask']
+            regulator_en_status = i2creturn & en_mask
+            self.result['return'] = regulator_en_status
+
+            print(f"                  i2c      {i2creturn:#08b}")
+            print(f"                  return   {self.result["return"]:#08b}")
         except Exception:
             self.result['return'] = stdout[0]
+            print("regulator_enable: exception")
+            print(stdout)
+            print(stderr)
         finally:
             return self.result
 
-    def regulator_disable(self,regulator,command):
+    def regulator_disable(self, regulator, command, nap=0.2):
         self.result['stage'] = 'regulator_disable'
         self.result['regulator'] = regulator
         self.result['expect'] = 0
 
-        command.run("echo 0 > /sys/kernel/mva_test/regulators/"+self.board.data['regulators'][regulator]['name']+"_en")
-        sleep(0.2)
+        name = self.board.data['regulators'][regulator]['name']
+        bus = self.board.data['i2c']['bus']
+        addr = self.board.data['i2c']['address']
+        en_addr = self.board.data['regulators'][regulator]['regulator_en_address']
+        en_mask = self.board.data['regulators'][regulator]['regulator_en_bitmask']
 
-       #### bd71828 needs a bit more time to set the values to register, read fails without this
+        print(f"regulator_disable: {regulator}")
+        print(f"                   name     {name}")
+        print(f"                   bus      {bus}")
+        print(f"                   addr     {addr:#x}")
+        print(f"                   en_addr  {en_addr:#x}")
+        print(f"                   en_mask  {en_mask:#08b}")
+
+        command.run(f"echo 0 > /sys/kernel/mva_test/regulators/{name}_en")
+        sleep(nap)
+
+        ### bd71828 needs a bit more time to set the values to register, read fails without this
         if self.board.data['name'] == 'bd71828':
             sleep(2)
 
-        stdout, stderr, returncode = command.run("i2cget -y -f "+str(self.board.data['i2c']['bus'])+" "+str(hex(self.board.data['i2c']['address']))+" "+str(hex(self.board.data['regulators'][regulator]['regulator_en_address'])))
+        stdout, stderr, returncode = command.run(f"i2cget -y -f {bus} {addr:#x} {en_addr:#x}")
         try:
             i2creturn = int(stdout[0],0)
-            self.result['return'] = i2creturn & self.board.data['regulators'][regulator]['regulator_en_bitmask']
+            self.result['return'] = i2creturn & en_mask
+
+            print(f"                   i2c      {i2creturn:#08b}")
+            print(f"                   return   {self.result["return"]:#08b}")
         except Exception:
             self.result['return'] = stdout[0]
+
+            print("regulator_disable: exception")
+            print(stdout)
+            print(stderr)
         finally:
             return self.result
 
@@ -427,36 +467,36 @@ class pmic:
     def regulator_voltage_driver_set(self,regulator,uv,command):
         command.run("echo "+str(uv)+" "+str(uv)+" > /sys/kernel/mva_test/regulators/"+self.board.data['regulators'][regulator]['name']+"_set")
 
-    def regulator_voltage_set(self, regulator,r, command, volt_index=None):
+    def regulator_voltage_set(self, regulator, r, command, volt_index=None):
         ######## SETS VOLTAGE THROUGH TEST KERNEL MODULE ######
-        if self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['is_linear'] == True:
-            mv = self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['start_mV'] +(self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['step_mV'] * volt_index)
-
-        elif self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['is_linear'] == False:
-            mv = self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['list_mV'][volt_index]
+        ranges = self.board.data["regulators"][regulator]["settings"]["voltage"]["range"]
+        mv = ranges[r]["start_mV"] + ranges[r]["step_mV"] * volt_index if ranges[r]["is_linear"] else ranges[r]["list_mV"][volt_index]
 
         uv = int(self.mv_to_uv(mv))
-        command.run("echo "+str(uv)+" "+str(uv)+" > /sys/kernel/mva_test/regulators/"+self.board.data['regulators'][regulator]['name']+"_set")
-        print("echo "+str(uv)+" "+str(uv)+" > /sys/kernel/mva_test/regulators/"+self.board.data['regulators'][regulator]['name']+"_set")
+        command.run(f"echo {uv} {uv} > /sys/kernel/mva_test/regulators/{self.board.data["regulators"][regulator]["name"]}_set")
 
         return uv
 
     def regulator_voltage_run(self,regulator,command):
-        self.result['stage'] = 'voltage_run'
-        self.result['regulator'] = regulator
-        self.result['return'] = []
-        self.result['expect'] = []
+        self.result["stage"] = 'voltage_run'
+        self.result["regulator"] = regulator
+        self.result["return"] = []
+        self.result["expect"] = []
 
-        for r in self.board.data['regulators'][regulator]['settings']['voltage']['range'].keys():
-            if r != 'flat':
-                for x in range(self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['start_reg'], self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['stop_reg']+1):
-                    volt_index = x - self.board.data['regulators'][regulator]['settings']['voltage']['range'][r]['start_reg']
+        print(f"regulator: {regulator}")
 
-                    uv = self.regulator_voltage_set(regulator, r, command, volt_index)
+        ranges = self.board.data["regulators"][regulator]["settings"]["voltage"]["range"]
+        for r in ranges.keys():
+            if r != "flat":
+                for index in range(0, ranges[r]["stop_reg"] - ranges[r]["start_reg"] + 1):
+                    uv = self.regulator_voltage_set(regulator, r, command, index)
                     calculated_return_value = self.i2c_to_uv(regulator, command)
 
-                    self.result['return'].append([r, x, calculated_return_value])
-                    self.result['expect'].append([r, x, uv])
+                    self.result["return"].append([r, index, int(calculated_return_value)])
+                    self.result["expect"].append([r, index, uv])
+
+        print(f"return[0:10]: {self.result["return"][0:10]}")
+        print(f"expect[0:10]: {self.result["expect"][0:10]}")
 
         return self.result
 
