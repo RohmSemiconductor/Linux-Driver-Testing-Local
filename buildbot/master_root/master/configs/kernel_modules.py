@@ -5,6 +5,7 @@ kernel_modules={}
 kernel_modules['linux_ver']={
 'bd71815':['5.13'],
 'bd71828':['5.6'], #bd71849 is similar
+'bd72720':['5.6'],
 'bd71837':['4.20'],
 'bd71847':['4.20'],
 'bd9576':['5.13'],
@@ -35,6 +36,7 @@ kernel_modules['build']={
 ### PMICs
 'bd71815':['bd71815_test.dtbo','bd71815-test.ko','bd71815-gpio-test.ko','bd71815-clktest.ko'],
 'bd71828':['bd71828_test.dtbo','bd71828-test.ko','bd71828-gpio-test.ko','bd71828-clktest.ko'],
+'bd72720':['bd72720_test.dtbo','bd72720-test.ko','bd72720-gpio-test.ko'],
 #'bd71837':['bd71837_test.dtbo','bd71837-test.ko','bbb_only_I2C_1.dtbo'],
 'bd71837':['bd71837_test.dtbo','bd71837-test.ko'],
 'bd71847':['bd71847_test.dtbo','bd71847-test.ko','bd71847-test2.ko'],
@@ -81,6 +83,7 @@ kernel_modules['dts_files']={
 kernel_modules['dt_overlays']={
 'bd71815':['bd71815_test.dtbo'],
 'bd71828':['bd71828_test.dtbo'],#not yet installed
+'bd72720':['bd72720_test.dtbo'],
 #'bd71837':['bd71837_test.dtbo','bbb_only_I2C_1.dtbo'],
 'bd71837':['bd71837_test.dtbo'],
 'bd71847':['bd71847_test.dtbo'],
@@ -99,6 +102,7 @@ kernel_modules['dt_overlays']={
 kernel_modules['test']={
 'bd71815':['bd71815-test.ko','bd71815-gpio-test.ko','bd71815-clktest.ko'],
 'bd71828':['bd71828-test.ko','bd71828-gpio-test.ko','bd71828-clktest.ko'],
+'bd72720':['bd72720-test.ko','bd72720-gpio-test.ko'],
 'bd71837':['bd71837-test.ko'],
 'bd71847':['bd71847-test.ko','bd71847-test2.ko'],
 'bd9576':['bd9576-test.ko'],
@@ -116,6 +120,7 @@ kernel_modules['merged_dt_overlay']={
 'bd71815':['rohm_bd71828','gpio_bd71815','clk_bd718x7','bd71815_regulator','rtc_bd70528'],
 #'bd71828':['rohm_bd71828','gpio_bd71828','clk_bd718x7','bd71828_regulator','rtc_bd70528'], #not yet installed
 'bd71828':['rohm_bd71828'],
+'bd72720':['rohm_bd71828'],
 'bd71837':['bd718x7_regulator','rohm_regulator','clk_bd718x7','rohm_bd718x7'],
 'bd71847':['bd718x7_regulator','rohm_regulator','clk_bd718x7','rohm_bd718x7'],
 'bd9576':['bd9576_wdt','bd9576_regulator','rohm_bd9576'],
@@ -135,6 +140,7 @@ kernel_modules['merged_dt_overlay']={
 kernel_modules['insmod_tests']={
 'bd71815':['bd71815_test','bd71815_gpio_test','bd71815_clktest'],
 'bd71828':['bd71828_test','bd71828_gpio_test','bd71828_clktest'],
+'bd72720':['bd72720_test','bd72720_gpio_test'],
 'bd71837':['bd71837_test'],
 'bd71847':['bd71847_test','bd71847_test2'],
 'bd9576':['bd9576_test'],
@@ -151,6 +157,7 @@ kernel_modules['insmod_tests']={
 kernel_modules['init_regulator_test']={ #useless
 'bd71815':['ti_am335x_tscadc','industrilio','kfifo_buf','ti_am335x_adc'],
 'bd71828':['bd71828_test.dtbo','bd71828-test.ko','bd71828-gpio-test.ko','bd71828-clktest.ko'],
+'bd72720':['bd72720_test.dtbo','bd72720-test.ko','bd72720-gpio-test.ko'],
 'bd71837':['bd71837_test.dtbo','bd71837-test.ko'], #,'bbb_only_I2C_1.dtbo'
 'bd71847':['bd718x7_regulator','gpio_keys','rohm_regulator','clk_bd718x7','rohm_bd718x7'],
 'bd9576':['bd9576_test.dtbo','bd9576-test.ko'],
