@@ -7,7 +7,7 @@ from test_util import check_result
 from pmic_class import pmic
 bd71828 = pmic(bd71828)
 
-def test_sanitycheck(command):
+def test_000_sanitycheck(command):
     result = bd71828.validate_config('bd71828')
     check_result(result)
 
