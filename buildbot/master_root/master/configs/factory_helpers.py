@@ -6,7 +6,8 @@ import math
 import functools
 from kernel_modules import *
 from test_boards import *
-from paths import *
+
+import paths as config
 
 ####### Generates steps for tests
 class GenerateStagesCommand(buildstep.ShellMixin, steps.BuildStep):
@@ -617,17 +618,16 @@ def copy_test_kernel_modules_to_nfs(_factory, product, test_dts, generic_module 
         for value in kernel_modules['build'][product]:
             if generic_module == None:
                 copy_commands.append(util.ShellArg(
-                    command=util.Interpolate('cp ../../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/'+product+"/"+value+' '+dir_nfs),
-#                    command=["cp", "_test-kernel-modules/"+product+"/"+value, dir_nfs],
+                    command=util.Interpolate(f"cp ../../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/{product}/{value} {config.NFS_PATH}"),
+                    # command=["cp", "_test-kernel-modules/"+product+"/"+value, config.NFS_PATH],
                     logname="Copy "+value+" to nfs"))
             else:
                 copy_commands.append(util.ShellArg(
-                    command=util.Interpolate('cp ../../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/'
-                                             +generic_module+'/'+value+' '+dir_nfs),
+                    command=util.Interpolate(f"cp ../../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/{generic_module}/{value} {config.NFS_PATH}"),
                     logname="Copy "+value+" to nfs"))
     else:
         copy_commands.append(util.ShellArg(
-            command=util.Interpolate('cp ../../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/'+adc+'/'+kernel_modules['adc_pair'][product]['dtbo']+' '+dir_nfs),
+            command=util.Interpolate(f"cp ../../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/{adc}/{kernel_modules['adc_pair'][product]['dtbo']} {config.NFS_PATH}"),
             logname="Copy "+kernel_modules['adc_pair'][product]['dtbo']+" to nfs"))
 
     _factory.addStep(steps.ShellSequence(
@@ -850,8 +850,10 @@ def build_dtbo(_factory, product, test_dts, test_type):
     doStepIf_dts_test_preparation_partial = functools.partial(doStepIf_dts_test_preparation, product=product)
     _factory.addStep(steps.SetPropertyFromCommand(
         command=['./makedtb', '-i', product+'/generated_dts_'+test_dts+'.dts', '-o', 'dtbo', '-n', product+'/'+product+'_test'],
-        env={'KERNEL_DIR':'../',
-             'CC':dir_compiler_arm32+'arm-none-eabi-',},
+        env={
+            "KERNEL_DIR": "../",
+            "CC": f"{config.ARM32_COMPILER_PATH}arm-none-eabi-",
+        },
         workdir=util.Interpolate('../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/'),
         doStepIf=doStepIf_dts_test_preparation_partial,
         hideStepIf=skipped,
@@ -864,8 +866,13 @@ def build_dts(_factory, product, test_dts, test_type):
     doStepIf_dts_test_preparation_partial = functools.partial(doStepIf_dts_test_preparation, product=product)
     _factory.addStep(steps.SetPropertyFromCommand(
         command=['make'],
-        env={'KERNEL_DIR':'../../','CC':dir_compiler_arm32+'arm-none-eabi-','PWD':'./','DTS_FILE':'generated_dts_'+test_dts+'.dts'},
-#        workdir="build/_test-kernel-modules/"+product,
+        env={
+            "KERNEL_DIR": "../../",
+            "CC": f"{config.ARM32_COMPILER_PATH}arm-none-eabi-",
+            "PWD": "./",
+            "DTS_FILE": f"generated_dts_{test_dts}.dts",
+        },
+        # workdir="build/_test-kernel-modules/"+product,
         workdir=util.Interpolate('../../Linux_Worker/%(prop:linuxdir)s/build/_test-kernel-modules/'+product),
         doStepIf=doStepIf_dts_test_preparation_partial,
         hideStepIf=skipped,

@@ -4,8 +4,9 @@ import re
 sys.path.append(os.path.abspath("./configs"))
 
 from projects import *
-from paths import *
 from factory_helpers import *
+
+import paths as config
 
 def check_boneblack_old_dir(step):
     projects = ["linux_fast_test", "linux_local_test"]
@@ -141,7 +142,7 @@ def build_kernel_arm32(project_name):
         ))
 
     projects[project_name]['factory'].addStep(steps.ShellCommand(
-        command=["make", "-j8", "ARCH=arm", "CROSS_COMPILE="+dir_compiler_arm32+"arm-none-eabi-", "LOADADDR=0x80008000", "olddefconfig"],
+        command=["make", "-j8", "ARCH=arm", f"CROSS_COMPILE={config.ARM32_COMPILER_PATH}arm-none-eabi-", "LOADADDR=0x80008000", "olddefconfig"],
         name="Update kernel config if needed"
         ))
 
@@ -152,7 +153,7 @@ def build_kernel_arm32(project_name):
         ))
 
     projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
-        command=["ccache", "make", "-j8", "ARCH=arm", "CROSS_COMPILE="+dir_compiler_arm32+"arm-none-eabi-", "LOADADDR=0x80008000"],
+        command=["ccache", "make", "-j8", "ARCH=arm", f"CROSS_COMPILE={config.ARM32_COMPILER_PATH}arm-none-eabi-", "LOADADDR=0x80008000"],
         name="Build kernel binaries",
         extract_fn=extract_make_kernel
         ))
@@ -166,7 +167,7 @@ def build_kernel_arm32(project_name):
         ))
 
     projects[project_name]['factory'].addStep(steps.ShellCommand(
-        command=["make", "-j8", "ARCH=arm", "CROSS_COMPILE="+dir_compiler_arm32+"arm-none-eabi-", "LOADADDR=0x80008000", "INSTALL_MOD_PATH="+dir_nfs, "modules_install"],
+        command=["make", "-j8", "ARCH=arm", f"CROSS_COMPILE={config.ARM32_COMPILER_PATH}arm-none-eabi-", "LOADADDR=0x80008000", f"INSTALL_MOD_PATH={config.NFS_PATH}", "modules_install"],
         name="Install kernel modules",
         doStepIf=util.Property('kernel_build_failed') != 'True'
         ))
@@ -199,8 +200,8 @@ def copy_kernel_binaries_to_tftpboot(project_name):
     if project_name == 'linux_rohm_devel' or project_name == 'linux_fast_test':
         projects[project_name]['factory'].addStep(steps.ShellSequence(
             commands=[
-            util.ShellArg(command=['cp',"arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", dir_tftpboot], logname='Copy BeagleBone .dtb to tftpboot'),
-            util.ShellArg(command=['cp',"arch/arm/boot/zImage", dir_tftpboot], logname='Copy zImage to tftpboot')
+            util.ShellArg(command=['cp',"arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", config.TFTPBOOT_PATH], logname='Copy BeagleBone .dtb to tftpboot'),
+            util.ShellArg(command=['cp',"arch/arm/boot/zImage", config.TFTPBOOT_PATH], logname='Copy zImage to tftpboot')
             ],
             name="Copy kernel binaries to tftpboot",
             doStepIf=util.Property('kernel_build_failed') != 'True' ,
@@ -209,8 +210,8 @@ def copy_kernel_binaries_to_tftpboot(project_name):
     else:
         projects[project_name]['factory'].addStep(steps.ShellSequence(
             commands=[
-            util.ShellArg(command=['cp',"arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", dir_tftpboot], logname='Copy BeagleBone .dtb to tftpboot'),
-            util.ShellArg(command=['cp',"arch/arm/boot/zImage", dir_tftpboot], logname='Copy zImage to tftpboot')
+            util.ShellArg(command=['cp',"arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", config.TFTPBOOT_PATH], logname='Copy BeagleBone .dtb to tftpboot'),
+            util.ShellArg(command=['cp',"arch/arm/boot/zImage", config.TFTPBOOT_PATH], logname='Copy zImage to tftpboot')
             ],
             name="Copy kernel binaries to tftpboot",
             doStepIf=doStepIf_dtc_boneblack,
@@ -220,8 +221,8 @@ def copy_kernel_binaries_to_tftpboot(project_name):
              ### For Linux version <= 6.1
         projects[project_name]['factory'].addStep(steps.ShellSequence(
             commands=[
-            util.ShellArg(command=['cp',"arch/arm/boot/dts/am335x-boneblack.dtb", dir_tftpboot], logname='Copy BeagleBone .dtb to tftpboot'),
-            util.ShellArg(command=['cp',"arch/arm/boot/zImage", dir_tftpboot], logname='Copy zImage to tftpboot')
+            util.ShellArg(command=['cp',"arch/arm/boot/dts/am335x-boneblack.dtb", config.TFTPBOOT_PATH], logname='Copy BeagleBone .dtb to tftpboot'),
+            util.ShellArg(command=['cp',"arch/arm/boot/zImage", config.TFTPBOOT_PATH], logname='Copy zImage to tftpboot')
             ],
             name="Copy kernel binaries to tftpboot(old dir)",
             doStepIf=doStepIf_dtc_boneblack_old_dir,
@@ -277,7 +278,11 @@ def extract_make_overlay_merger(rc, stdout, stderr):
 def build_overlay_merger(project_name):
     projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
         command=["make"],
-        env={'KERNEL_DIR':'../../','CC':dir_compiler_arm32+'arm-none-eabi-','PWD':'./'},
+        env={
+            "KERNEL_DIR": "../../",
+            "CC": f"{config.ARM32_COMPILER_PATH}arm-none-eabi-",
+            "PWD": "./",
+        },
         workdir="build/_test-kernel-modules/overlay_merger",
         name="Build test kernel module: overlay_merger",
         hideStepIf=skipped,
@@ -296,7 +301,7 @@ def build_overlay_merger(project_name):
 
 def copy_overlay_merger_to_nfs(project_name):
     projects[project_name]['factory'].addStep(steps.ShellCommand(
-        command=["cp", "_test-kernel-modules/overlay_merger/mva_overlay.ko", dir_nfs],
+        command=["cp", "_test-kernel-modules/overlay_merger/mva_overlay.ko", config.NFS_PATH],
         name="Copy overlay merger to nfs",
         hideStepIf=skipped,
         doStepIf=util.Property('preparation_step_failed') != 'True'
@@ -310,8 +315,10 @@ def extract_build_chipselect_spi0_dtbo(rc, stdout, stderr):
 def build_chipselect_spi0_dtbo(project_name):
     projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
         command=['./makedtb', '-i', 'chipselect/chipselect_spi0.dts','-o', 'dtbo', '-n', 'chipselect/chipselect_spi0'],
-        env={'KERNEL_DIR':'../',
-             'CC':dir_compiler_arm32+'arm-none-eabi-'},
+        env={
+            "KERNEL_DIR": "../",
+            "CC": f"{config.ARM32_COMPILER_PATH}arm-none-eabi-",
+        },
         workdir="build/_test-kernel-modules",
         doStepIf=util.Property('preparation_step_failed') != 'True',
         hideStepIf=skipped,
@@ -329,7 +336,7 @@ def build_chipselect_spi0_dtbo(project_name):
 
 def copy_chipselect_to_nfs(project_name):
     projects[project_name]['factory'].addStep(steps.ShellCommand(
-        command=["cp", "chipselect/chipselect_spi0.dtbo", dir_nfs],
+        command=["cp", "chipselect/chipselect_spi0.dtbo", config.NFS_PATH],
         workdir="build/_test-kernel-modules",
         name="Copy chipselect_spi0.dtbo to nfs",
         hideStepIf=skipped,
