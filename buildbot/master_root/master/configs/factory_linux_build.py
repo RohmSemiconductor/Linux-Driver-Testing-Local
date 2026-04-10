@@ -1026,7 +1026,6 @@ def set_factory_result_properties(project_name):
 
 
 def build_deploy_kernel(project_name):
-
     ### Build and deploy
     build_kernel_arm32(project_name)
     copy_kernel_binaries_to_tftpboot(project_name)
@@ -1045,8 +1044,11 @@ def build_deploy_kernel(project_name):
     trigger_test_factories(project_name)
     get_factory_properties(project_name)
     set_factory_result_properties(project_name)
-    # save_good_commit(project_name)
-    # git_bisect(project_name)
+
+    if config.ENABLE_GIT_BISECT:
+        save_good_commit(project_name)
+        git_bisect(project_name)
+
     clean_local_results(project_name, 'Sensor', 30)
     clean_local_results(project_name, 'PMIC', 30)
     clean_local_results(project_name, 'ADDAC', 30)
