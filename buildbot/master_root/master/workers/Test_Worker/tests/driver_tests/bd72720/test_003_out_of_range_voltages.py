@@ -1,0 +1,38 @@
+import pytest
+import sys
+
+sys.path.append("..")
+sys.path.append("./configs")
+from test_util import check_result
+from pmic_class import pmic
+import bd72720
+bd72720 = pmic(bd72720)
+
+def test_003_out_of_range_voltages(command):
+    regulators = bd72720.board.data["regulators"]
+    for regulator in regulators.keys():
+        if not "dts_only" in regulators[regulator].keys():
+            if "voltage" in regulators[regulator]["settings"].keys():
+                regulator_is_on = bd72720.regulator_is_on(regulator,command)
+                check_result(regulator_is_on)
+
+                if "volt_change_not_allowed_while_on" in regulators[regulator]: # and regulator_is_on["return"] == 1:
+                    print(f"Cannot change regulator '{regulator}' voltage - out of range tests skipped")
+                else:
+                    result, min, max = bd72720.get_min_max_volt(regulator)
+
+                    bd72720.regulator_voltage_driver_set(regulator, min, command)
+                    result["expect"] = ["min", bd72720.i2c_to_uv(regulator, command)]
+
+                    bd72720.regulator_voltage_driver_set(regulator, min - 10000, command)
+                    result["return"] = ["min", bd72720.i2c_to_uv(regulator, command)]
+
+                    check_result(result)
+
+                    bd72720.regulator_voltage_driver_set(regulator, max, command)
+                    result["expect"] = ["max", bd72720.i2c_to_uv(regulator, command)]
+
+                    bd72720.regulator_voltage_driver_set(regulator, max + 10000, command)
+                    result["return"] = ["max", bd72720.i2c_to_uv(regulator, command)]
+
+                    check_result(result)
