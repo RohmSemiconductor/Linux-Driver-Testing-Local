@@ -364,41 +364,59 @@ def doStepIf_trigger_sensor_factory(step):
         return False
 
 def trigger_test_factories(project_name):
-    ### First set of factories
-        projects[project_name]['factory'].addStep(steps.Trigger(
-            # schedulerNames=['scheduler-pmic_tests', 'scheduler-accelerometer_tests'],
-            schedulerNames=['scheduler-pmic_tests'],
+    if "pmic" in config.FACTORIES:
+        projects[project_name]["factory"].addStep(steps.Trigger(
+            schedulerNames=["scheduler-pmic_tests"],
             updateSourceStamp=True,
-            name="Trigger test factories",
-            waitForFinish = True,
-            set_properties= {
-                'iio_generic_buffer_found':util.Property('iio_generic_buffer_found'),
-                'preparation_step_failed':util.Property('preparation_step_failed'),
-                'git_bisecting':util.Property('git_bisecting'),
-                'commit-description':util.Property('commit-description'),
-                'factory_type':'accelerometer',
-                'timestamp':util.Property('timestamp'),
-                'linuxdir':util.Property('buildername'),
-                'chipselect_spi0_dtbo_build_failed':util.Property('chipselect_spi0_dtbo_build_failed'),
-                },
-            ))
-    ### Second set of factories
-        # projects[project_name]['factory'].addStep(steps.Trigger(
-        #     schedulerNames=['scheduler-addac_tests'],
-        #     updateSourceStamp=True,
-        #     name="Trigger test factories",
-        #     waitForFinish = True,
-        #     set_properties= {
-        #         'iio_generic_buffer_found':util.Property('iio_generic_buffer_found'),
-        #         'preparation_step_failed':util.Property('preparation_step_failed'),
-        #         'git_bisecting':util.Property('git_bisecting'),
-        #         'commit-description':util.Property('commit-description'),
-        #         'factory_type':'accelerometer',
-        #         'timestamp':util.Property('timestamp'),
-        #         'linuxdir':util.Property('buildername'),
-        #         'chipselect_spi0_dtbo_build_failed':util.Property('chipselect_spi0_dtbo_build_failed'),
-        #         },
-        #     ))
+            name="Trigger 'pmic' test factories",
+            waitForFinish=True,
+            set_properties={
+                "iio_generic_buffer_found": util.Property("iio_generic_buffer_found"),
+                "preparation_step_failed": util.Property("preparation_step_failed"),
+                "git_bisecting": util.Property("git_bisecting"),
+                "commit-description": util.Property("commit-description"),
+                "factory_type": "pmic",
+                "timestamp": util.Property("timestamp"),
+                "linuxdir": util.Property("buildername"),
+                "chipselect_spi0_dtbo_build_failed": util.Property("chipselect_spi0_dtbo_build_failed"),
+            },
+        ))
+
+    if "accelerometer" in config.FACTORIES:
+        projects[project_name]["factory"].addStep(steps.Trigger(
+            schedulerNames=["scheduler-accelerometer_tests"],
+            updateSourceStamp=True,
+            name="Trigger 'accelerometer' test factories",
+            waitForFinish=True,
+            set_properties={
+                "iio_generic_buffer_found": util.Property("iio_generic_buffer_found"),
+                "preparation_step_failed": util.Property("preparation_step_failed"),
+                "git_bisecting": util.Property("git_bisecting"),
+                "commit-description": util.Property("commit-description"),
+                "factory_type": "accelerometer",
+                "timestamp": util.Property("timestamp"),
+                "linuxdir": util.Property("buildername"),
+                "chipselect_spi0_dtbo_build_failed": util.Property("chipselect_spi0_dtbo_build_failed"),
+            },
+        ))
+
+    if "addac" in config.FACTORIES:
+        projects[project_name]["factory"].addStep(steps.Trigger(
+            schedulerNames=["scheduler-addac_tests"],
+            updateSourceStamp=True,
+            name="Trigger 'addac' test factories",
+            waitForFinish=True,
+            set_properties={
+                "iio_generic_buffer_found": util.Property("iio_generic_buffer_found"),
+                "preparation_step_failed": util.Property("preparation_step_failed"),
+                "git_bisecting": util.Property("git_bisecting"),
+                "commit-description": util.Property("commit-description"),
+                "factory_type": "addac",
+                "timestamp": util.Property("timestamp"),
+                "linuxdir": util.Property("buildername"),
+                "chipselect_spi0_dtbo_build_failed": util.Property("chipselect_spi0_dtbo_build_failed"),
+            },
+        ))
 
 def download_test_boards(project_name):
     projects[project_name]['factory'].addStep(steps.FileDownload(
