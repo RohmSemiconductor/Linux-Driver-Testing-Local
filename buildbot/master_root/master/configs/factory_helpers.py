@@ -7,7 +7,7 @@ import functools
 from kernel_modules import *
 from test_boards import *
 
-import paths as config
+import test_config as config
 
 ####### Generates steps for tests
 class GenerateStagesCommand(buildstep.ShellMixin, steps.BuildStep):

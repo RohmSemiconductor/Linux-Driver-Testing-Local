@@ -3,10 +3,10 @@ import os
 import re
 sys.path.append(os.path.abspath("./configs"))
 
-from projects import *
 from factory_helpers import *
 
-import paths as config
+from projects import *
+import test_config as config
 
 def check_boneblack_old_dir(step):
     projects = ["linux_fast_test", "linux_local_test"]

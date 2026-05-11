@@ -5,7 +5,7 @@ from buildbot.plugins import util, steps
 from factory_helpers import *
 from test_boards import *
 
-import paths as config
+import test_config as config
 
 factory_addac_test = util.BuildFactory()
 
