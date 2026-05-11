@@ -1,5 +1,34 @@
 from buildbot.plugins import util
 
+# Project layout:
+#
+# <project name> {                      The name for the project.
+#     kernel: {                         Defines what kernel and branch to use. Must have either
+#                                       'remote' or 'local' defined, if both are, then 'local' is used.
+#         remote: <string>              URL to a remote repository.
+#         local: <string>               Path to a local repository.
+#         branch: <string>              The branch to use.
+#     }
+#     modules: {                        Same as above, but for the kernel modules.
+#         remote: <string>
+#         local: <string>
+#         branch: <string>
+#     }
+#     pollInterval: <number>            Time between polls, in seconds.
+#     pollCooldown: <number>            Cooldown after a change is made, in seconds. Helps during
+#                                       merge windows, so not every change triggers a rebuild.
+#     builderNames: [<string> ...]      Separate builder for each project, these appear separately
+#                                       in the BuildBot Web view.
+#     workerNames: [<string> ...]       List of workers which can build and run this project,
+#                                       'Linux_Worker' is a local worker.
+#     schedulerName: <string>           Name for the scheduler.
+#     schedulerType: <string>           Type of the scheduler, must be one of 'default', 'release',
+#                                       'next', 'stable' or 'rolling_stable'.
+#     workdir: <string>                 Optional name for the working directory. Uses the project
+#                                       name by default.
+#     factory:                          The factory used for this project. This is added automatically.
+# }
+
 default_modules = {
     "remote": "https://github.com/RohmSemiconductor/Linux-Driver-Testing.git",
     "branch": "dev-addac-test-kernel-modules",
