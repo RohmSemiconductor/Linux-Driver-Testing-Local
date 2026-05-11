@@ -34,12 +34,14 @@ def extract_boneblack_dts(rc, stdout, stderr):
         return {'preparation_step_failed':'False'}
 
 def initialize_test_report(project_name):
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
-        command=["python3", "report_janitor.py", "initialize_report", projects[project_name]['builderNames'][0], util.Property('commit-description'), util.Property('revision')],
+    project = projects[project_name]
+
+    project["factory"].addStep(steps.ShellCommand(
+        command=["python3", "report_janitor.py", "initialize_report", project["builderName"], util.Property('commit-description'), util.Property('revision')],
         workdir="../../Test_Worker/tests",
         name="Initialize test report",
         doStepIf=util.Property('git_bisecting') != 'True'
-        ))
+    ))
 
 def doStepIf_dtc_boneblack(step):
     if step.getProperty('kernel_build_failed') != 'True':
@@ -92,30 +94,38 @@ def extract_make_kernel(rc, stdout, stderr):
         return {'preparation_step_failed':'False'}
 
 def build_kernel_arm32(project_name):
-    if project_name != "linux-next":
-        projects[project_name]['factory'].addStep(steps.Git(
-            repourl=projects[project_name]['repo_git'],
-            mode='full',
-            getDescription={'tags':True},
-            name="Update linux source files from git",
-            tags=True,
-            doStepIf=util.Property('git_bisect_state') != 'running'
-            ))
+    project = projects[project_name]
+
+    if "local" in project["kernel"]:
+        project["factory"].addStep(steps.ShellCommand(
+            command=["git", "checkout", project["kernel"]["branch"]],
+            workdir=project["kernel"]["local"],
+            name="Checkout local kernel sources",
+            hideStepIf=skipped,
+            doStepIf=util.Property("preparation_step_failed") != "True"
+        ))
+        project["factory"].addStep(steps.ShellCommand(
+            command=["rsync", "-vrc", f"{project["kernel"]["local"]}/.", "."],
+            workdir="build",
+            name="Update Linux source files locally",
+            hideStepIf=skipped,
+            doStepIf=util.Property("git_bisect_state") != "running"
+        ))
     else:
-        projects[project_name]['factory'].addStep(steps.Git(
-            repourl=projects[project_name]['repo_git'],
-            mode='full',
-            method='clobber',
-            getDescription={'tags':True},
-            name="Update linux source files from git",
+        project["factory"].addStep(steps.Git(
+            repourl=project["kernel"]["remote"],
+            branch=project["kernel"]["branch"],
+            mode="incremental",
+            getDescription={"tags":True},
+            name="Update Linux source files from Git",
             tags=True,
-            doStepIf=util.Property('git_bisect_state') != 'running'
-            ))
+            doStepIf=util.Property("git_bisect_state") != "running"
+        ))
 
     initialize_test_report(project_name)
 
     ### Copy Linux stable config
-    projects[project_name]['factory'].addStep(steps.FileDownload(
+    project['factory'].addStep(steps.FileDownload(
         mastersrc=util.Interpolate("../../../compilers/kernel_configs/arm32_bbb_%(prop:branch)s.config"),
         workerdest=".config",
         name=util.Interpolate("Copy %(prop:branch)s config to build directory"),
@@ -124,7 +134,7 @@ def build_kernel_arm32(project_name):
         ))
 
     ### Copy mainline config if kernel version is different than stable
-    projects[project_name]['factory'].addStep(steps.FileDownload(
+    project['factory'].addStep(steps.FileDownload(
         mastersrc="../../../compilers/kernel_configs/arm32_bbb_linux_mainline.config",
         workerdest=".config",
         name="Copy mainline kernel config to build directory",
@@ -133,7 +143,7 @@ def build_kernel_arm32(project_name):
         ))
 
     ### Copy linux-next config if kernel version is linux-next
-    projects[project_name]['factory'].addStep(steps.FileDownload(
+    project['factory'].addStep(steps.FileDownload(
         mastersrc="../../../compilers/kernel_configs/arm32_bbb_test_linux.config",
         workerdest=".config",
         name="Copy linux-next kernel config to build directory",
@@ -141,24 +151,24 @@ def build_kernel_arm32(project_name):
         hideStepIf=skipped
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["make", "-j8", "ARCH=arm", f"CROSS_COMPILE={config.ARM32_COMPILER_PATH}arm-none-eabi-", "LOADADDR=0x80008000", "olddefconfig"],
         name="Update kernel config if needed"
         ))
 
-    projects[project_name]['factory'].addStep(steps.FileUpload(
+    project['factory'].addStep(steps.FileUpload(
         workersrc=".config",
         masterdest="/tmp/rohm_linux_driver_tests/temp_results/kernel.config",
         name="Copy kernel config to results"
         ))
 
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=["ccache", "make", "-j8", "ARCH=arm", f"CROSS_COMPILE={config.ARM32_COMPILER_PATH}arm-none-eabi-", "LOADADDR=0x80008000"],
         name="Build kernel binaries",
         extract_fn=extract_make_kernel
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["python3", "report_janitor.py", "kernel_error", util.Property('kernel_error_stderr')],
         workdir="../../Test_Worker/tests",
         name="Write kernel make stderr to log",
@@ -166,20 +176,20 @@ def build_kernel_arm32(project_name):
         hideStepIf=skipped
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["make", "-j8", "ARCH=arm", f"CROSS_COMPILE={config.ARM32_COMPILER_PATH}arm-none-eabi-", "LOADADDR=0x80008000", f"INSTALL_MOD_PATH={config.NFS_PATH}", "modules_install"],
         name="Install kernel modules",
         doStepIf=util.Property('kernel_build_failed') != 'True'
         ))
 
     if project_name == 'linux_rohm_devel' or project_name == 'linux_fast_test':
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=["dtc", "-@", "-I", "dts", "-O", "dtb", "-o", "arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", "arch/arm/boot/dts/ti/omap/.am335x-boneblack.dtb.dts.tmp"],
             name="Build Beagle device tree source binaries",
             extract_fn=extract_boneblack_dts,
             ))
     else:
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=["dtc", "-@", "-I", "dts", "-O", "dtb", "-o", "arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", "arch/arm/boot/dts/ti/omap/.am335x-boneblack.dtb.dts.tmp"],
             name="Build Beagle device tree source binaries",
             extract_fn=extract_boneblack_dts,
@@ -188,7 +198,7 @@ def build_kernel_arm32(project_name):
             ))
 
         ### For Linux version <= 6.1
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=["dtc", "-@", "-I", "dts", "-O", "dtb", "-o", "arch/arm/boot/dts/am335x-boneblack.dtb", "arch/arm/boot/dts/.am335x-boneblack.dtb.dts.tmp"],
             name="Build Beagle device tree source binaries(old dir)",
             extract_fn=extract_boneblack_dts,
@@ -197,8 +207,10 @@ def build_kernel_arm32(project_name):
             ))
 
 def copy_kernel_binaries_to_tftpboot(project_name):
+    project = projects[project_name]
+
     if project_name == 'linux_rohm_devel' or project_name == 'linux_fast_test':
-        projects[project_name]['factory'].addStep(steps.ShellSequence(
+        project['factory'].addStep(steps.ShellSequence(
             commands=[
             util.ShellArg(command=['cp',"arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", config.TFTPBOOT_PATH], logname='Copy BeagleBone .dtb to tftpboot'),
             util.ShellArg(command=['cp',"arch/arm/boot/zImage", config.TFTPBOOT_PATH], logname='Copy zImage to tftpboot')
@@ -208,7 +220,7 @@ def copy_kernel_binaries_to_tftpboot(project_name):
             hideStepIf=skipped
             ))
     else:
-        projects[project_name]['factory'].addStep(steps.ShellSequence(
+        project['factory'].addStep(steps.ShellSequence(
             commands=[
             util.ShellArg(command=['cp',"arch/arm/boot/dts/ti/omap/am335x-boneblack.dtb", config.TFTPBOOT_PATH], logname='Copy BeagleBone .dtb to tftpboot'),
             util.ShellArg(command=['cp',"arch/arm/boot/zImage", config.TFTPBOOT_PATH], logname='Copy zImage to tftpboot')
@@ -219,7 +231,7 @@ def copy_kernel_binaries_to_tftpboot(project_name):
             ))
 
              ### For Linux version <= 6.1
-        projects[project_name]['factory'].addStep(steps.ShellSequence(
+        project['factory'].addStep(steps.ShellSequence(
             commands=[
             util.ShellArg(command=['cp',"arch/arm/boot/dts/am335x-boneblack.dtb", config.TFTPBOOT_PATH], logname='Copy BeagleBone .dtb to tftpboot'),
             util.ShellArg(command=['cp',"arch/arm/boot/zImage", config.TFTPBOOT_PATH], logname='Copy zImage to tftpboot')
@@ -229,45 +241,41 @@ def copy_kernel_binaries_to_tftpboot(project_name):
             hideStepIf=skipped
             ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["dtc", "-i", "dtb", "-O", "dts", "-f", "/var/lib/tftpboot/am335x-boneblack.dtb",
                  "-o", "/tmp/rohm_linux_driver_tests/temp_results/converted_am335x-boneblack.dtb.dts"],
         name="Convert BeagleBone .dtb to .dts"
         ))
 
 def update_test_kernel_modules(project_name):
-    if project_name == 'linux-next':
-        projects[project_name]['factory'].addStep(steps.Git(
-            repourl='https://github.com/RohmSemiconductor/Linux-Driver-Testing.git',
-            branch='test-kernel-modules_linux-next',
-            alwaysUseLatest=True,
-            mode='full',
-            workdir="build/_test-kernel-modules",
-            name="Update kernel module source files from git",
+    project = projects[project_name]
+
+    if "local" in project["modules"]:
+        project["factory"].addStep(steps.ShellCommand(
+            command=["git", "checkout", project["modules"]["branch"]],
+            workdir=project["modules"]["local"],
+            name="Checkout local test kernel module sources",
+            hideStepIf=skipped,
+            doStepIf=util.Property("preparation_step_failed") != "True"
+        ))
+        project["factory"].addStep(steps.ShellCommand(
+            command=["rsync", "-vrc", f"{project["modules"]["local"]}/.", "./_test-kernel-modules"],
+            workdir="build",
+            name="Update test kernel module source files locally",
             hideStepIf=skipped,
             doStepIf=util.Property('preparation_step_failed') != 'True'
-            ))
+        ))
     else:
-        # projects[project_name]['factory'].addStep(steps.Git(
-        #     repourl='https://github.com/RohmSemiconductor/Linux-Driver-Testing.git',
-        #     branch='dev-addac-test-kernel-modules',
-        #     alwaysUseLatest=True,
-        #     mode='full',
-        #     workdir="build/_test-kernel-modules",
-        #     name="Update kernel module source files from git",
-        #     hideStepIf=skipped,
-        #     doStepIf=util.Property('preparation_step_failed') != 'True'
-        #     ))
-        projects[project_name]['factory'].addStep(steps.Git(
-            repourl='https://github.com/RohmSemiconductor/Linux-Driver-Testing-Local.git',
-            branch='test-kernel-modules',
+        project["factory"].addStep(steps.Git(
+            repourl=project["modules"]["remote"],
+            branch=project["modules"]["branch"],
             alwaysUseLatest=True,
-            mode='full',
+            mode="incremental",
             workdir="build/_test-kernel-modules",
-            name="Update kernel module source files from git",
+            name="Update test kernel module source files from Git",
             hideStepIf=skipped,
-            doStepIf=util.Property('preparation_step_failed') != 'True'
-            ))
+            doStepIf=util.Property("preparation_step_failed") != "True"
+        ))
 
 def extract_make_overlay_merger(rc, stdout, stderr):
     if rc != 0:
@@ -276,7 +284,9 @@ def extract_make_overlay_merger(rc, stdout, stderr):
         return {'preparation_step_failed':'False'}
 
 def build_overlay_merger(project_name):
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=["make"],
         env={
             "KERNEL_DIR": "../../",
@@ -290,7 +300,7 @@ def build_overlay_merger(project_name):
         doStepIf=util.Property('preparation_step_failed') != 'True'
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["python3", "report_janitor.py", "overlay_merger_error", util.Property('overlay_merger_stderr')],
         workdir="../../Test_Worker/tests",
         name="Write overlay merger make stderr to log",
@@ -298,14 +308,16 @@ def build_overlay_merger(project_name):
         hideStepIf=skipped
         ))
 
-
 def copy_overlay_merger_to_nfs(project_name):
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.ShellCommand(
         command=["cp", "_test-kernel-modules/overlay_merger/mva_overlay.ko", config.NFS_PATH],
         name="Copy overlay merger to nfs",
         hideStepIf=skipped,
         doStepIf=util.Property('preparation_step_failed') != 'True'
         ))
+
 def extract_build_chipselect_spi0_dtbo(rc, stdout, stderr):
     if rc != 0:
         return {'chipselect_spi0_dtbo_build_failed':'True', 'chipselect_makedtb_stderr':stderr}
@@ -313,7 +325,9 @@ def extract_build_chipselect_spi0_dtbo(rc, stdout, stderr):
         return {'chipselect_spi0_dtbo_build_failed':'False'}
 
 def build_chipselect_spi0_dtbo(project_name):
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=['./makedtb', '-i', 'chipselect/chipselect_spi0.dts','-o', 'dtbo', '-n', 'chipselect/chipselect_spi0'],
         env={
             "KERNEL_DIR": "../",
@@ -326,7 +340,7 @@ def build_chipselect_spi0_dtbo(project_name):
         name="Build SPI0 chipselect dtbo"
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["python3", "report_janitor.py", "chipselect_makedtb_error", util.Property('chipselect_makedtb_stderr')],
         workdir="../../Test_Worker/tests",
         name="Write chipselect_spi0 make stderr to log",
@@ -335,7 +349,9 @@ def build_chipselect_spi0_dtbo(project_name):
         ))
 
 def copy_chipselect_to_nfs(project_name):
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.ShellCommand(
         command=["cp", "chipselect/chipselect_spi0.dtbo", config.NFS_PATH],
         workdir="build/_test-kernel-modules",
         name="Copy chipselect_spi0.dtbo to nfs",
@@ -349,7 +365,9 @@ def extract_get_timestamp(rc, stdout, stderr):
 
 
 def get_timestamp(project_name):
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=["python3", "report_janitor.py", "get_timestamp"],
         workdir="../../Test_Worker/tests",
         name="Set timestamp property for results",
@@ -364,8 +382,10 @@ def doStepIf_trigger_sensor_factory(step):
         return False
 
 def trigger_test_factories(project_name):
+    project = projects[project_name]
+
     if "pmic" in config.FACTORIES:
-        projects[project_name]["factory"].addStep(steps.Trigger(
+        project["factory"].addStep(steps.Trigger(
             schedulerNames=["scheduler-pmic_tests"],
             updateSourceStamp=True,
             name="Trigger 'pmic' test factories",
@@ -383,7 +403,7 @@ def trigger_test_factories(project_name):
         ))
 
     if "accelerometer" in config.FACTORIES:
-        projects[project_name]["factory"].addStep(steps.Trigger(
+        project["factory"].addStep(steps.Trigger(
             schedulerNames=["scheduler-accelerometer_tests"],
             updateSourceStamp=True,
             name="Trigger 'accelerometer' test factories",
@@ -401,7 +421,7 @@ def trigger_test_factories(project_name):
         ))
 
     if "addac" in config.FACTORIES:
-        projects[project_name]["factory"].addStep(steps.Trigger(
+        project["factory"].addStep(steps.Trigger(
             schedulerNames=["scheduler-addac_tests"],
             updateSourceStamp=True,
             name="Trigger 'addac' test factories",
@@ -419,7 +439,9 @@ def trigger_test_factories(project_name):
         ))
 
 def download_test_boards(project_name):
-    projects[project_name]['factory'].addStep(steps.FileDownload(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.FileDownload(
         mastersrc="configs/kernel_modules.py",
         workerdest="../../../Test_Worker/tests/driver_tests/configs/kernel_modules.py",
         name="Download kernel_modules.py",
@@ -427,19 +449,22 @@ def download_test_boards(project_name):
         ))
 
 def copy_results_for_factories(project_name):
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.ShellCommand(
         command=["python3", "report_janitor.py", "initialize_factories"],
         name="Copy result files to factories",
         workdir="../../Test_Worker/tests",
         ))
 
 def sanity_checks(project_name):
+    project = projects[project_name]
+
     board_type = list(test_boards.keys())[0]
     power_port = list(test_boards[board_type]['power_ports'])[0]
     test_board = list(test_boards[board_type]['power_ports'][power_port])[0]
 
-
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=["pytest","-W","ignore::DeprecationWarning", "-ra",
                 "test_000_login.py",
                 "--power_port="+power_port,
@@ -453,7 +478,7 @@ def sanity_checks(project_name):
         ))
 
     ### Check for iio_generic_buffer
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=["pytest","-W","ignore::DeprecationWarning",
                 "test_000_check_iio_generic_buffer.py",
                 "--lg-log", "/tmp/rohm_linux_driver_tests/temp_results/",
@@ -468,7 +493,7 @@ def sanity_checks(project_name):
         ))
 
     ### Kunit test_linear_ranges test
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(command=[
+    project['factory'].addStep(steps.SetPropertyFromCommand(command=[
         'pytest','--lg-log', "/tmp/rohm_linux_driver_tests/temp_results/",
         '--lg-env='+test_board+".yaml",
         'test_get_kunit.py',
@@ -481,7 +506,7 @@ def sanity_checks(project_name):
         ))
 
     ### Kunit iio_test_gts
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=['pytest','--lg-log', "/tmp/rohm_linux_driver_tests/temp_results/",
         '--lg-env='+test_board+".yaml",
         'test_get_kunit.py',
@@ -493,7 +518,7 @@ def sanity_checks(project_name):
         name="Kunit IIO GTS test"
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["python3", "report_janitor.py", "finalize_sanitychecks"],
         workdir="../../Test_Worker/tests",
         name="Rename sanity check UART log",
@@ -501,7 +526,7 @@ def sanity_checks(project_name):
         hideStepIf=skipped
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project['factory'].addStep(steps.ShellCommand(
         command=["pytest","-W","ignore::DeprecationWarning", "-ra",
                  "test_005_powerdown_beagle.py",
                  "--power_port="+power_port,
@@ -513,7 +538,9 @@ def sanity_checks(project_name):
         ))
 
 def clean_local_results(project_name, branch_dir, days):
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.ShellCommand(
         command=["python3", "../report_janitor.py", "rm_old_results",
                 branch_dir, days],
         name="Clean local "+branch_dir+" results",
@@ -522,9 +549,11 @@ def clean_local_results(project_name, branch_dir, days):
         ))
 
 def publish_results_git(project_name, branch_dir):
+    project = projects[project_name]
+
     if branch_dir == "PMIC":
 
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["python3", "../report_janitor.py", "publish_results_git",
                      util.Property('timestamp'), util.Property('buildername'),
                      branch_dir, util.Property('LINUX_RESULT'),
@@ -535,7 +564,7 @@ def publish_results_git(project_name, branch_dir):
             ))
 
     if branch_dir == "Sensor":
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["python3", "../report_janitor.py", "publish_results_git",
                      util.Property('timestamp'), util.Property('buildername'),
                      branch_dir, util.Property('LINUX_RESULT'),
@@ -546,7 +575,7 @@ def publish_results_git(project_name, branch_dir):
             ))
 
     if branch_dir == "ADDAC":
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["python3", "../report_janitor.py", "publish_results_git",
                      util.Property('timestamp'), util.Property('buildername'),
                      branch_dir, util.Property('LINUX_RESULT'),
@@ -572,7 +601,9 @@ def extract_git_get_current_commit(rc, stdout, stderr):
     return {'current_git_commit':stdout}
 
 def save_good_commit(project_name):
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command=["git", "rev-parse", "HEAD"],
         workdir="build",
         name= "Get commit hash for git bisect good",
@@ -580,8 +611,8 @@ def save_good_commit(project_name):
         doStepIf=doStepIf_good_commit_write
         ))
 
-    projects[project_name]['factory'].addStep(steps.ShellCommand(
-        command=["python3", "bisect_good_commit.py", "write", projects[project_name]['name'], util.Property('branch'), util.Property('current_git_commit')],
+    project['factory'].addStep(steps.ShellCommand(
+        command=["python3", "bisect_good_commit.py", "write", project['name'], util.Property('branch'), util.Property('current_git_commit')],
         name="Save commit hash to file",
         workdir="../../Test_Worker/tests",
         doStepIf=doStepIf_good_commit_write
@@ -757,8 +788,10 @@ def extract_git_bisect_output(rc, stdout, stderr):
 #### /Git bisect helpers
 
 def git_bisect(project_name):
+    project = projects[project_name]
+
     if project_name == 'linux-next':
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=['git','bisect','start'],
             workdir="build",
             name="Git bisect: start",
@@ -766,7 +799,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=['git','bisect','bad'],
             workdir="build",
             name="Git bisect start: bad",
@@ -774,7 +807,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["git", "checkout", "stable"],
             workdir="build",
             name= "Checkout next/stable branch",
@@ -782,7 +815,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=['git','bisect','good'],
             workdir="build",
             name="Git bisect: good",
@@ -791,7 +824,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=['git','bisect','bad'],
             workdir="build",
             name="Git bisect: bad",
@@ -800,7 +833,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.SetProperty(
+        project['factory'].addStep(steps.SetProperty(
             name="Start git bisecting",
             property="git_bisecting",
             value="True",
@@ -808,8 +841,8 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.Trigger(
-            schedulerNames=['git_bisect_'+projects[project_name]['scheduler_name']],
+        project['factory'].addStep(steps.Trigger(
+            schedulerNames=['git_bisect_'+project['scheduler_name']],
             updateSourceStamp=True,
             name="Trigger building next/stable",
             set_properties= {
@@ -830,10 +863,10 @@ def git_bisect(project_name):
             ))
 
 
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["python3", "report_janitor.py", "bisect_result",
                      util.Property('timestamp'),
-                     projects[project_name]['builderNames'][0],
+                     project['builderNames'][0],
                      util.Property("git_bisect_output"),
                      util.Property("git_bisect_state"),
                      "PMIC",
@@ -846,7 +879,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["git", "bisect", "reset"],
             name="Git bisect reset",
             workdir="build",
@@ -855,7 +888,7 @@ def git_bisect(project_name):
             ))
 
     elif project_name != 'linux-next' and project_name != 'linux_stable' and project_name != 'linux_fast_test':
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=['git','bisect','start'],
             workdir="build",
             name="Git bisect: start",
@@ -863,8 +896,8 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
-            command=["python3", "bisect_good_commit.py", "read", projects[project_name]['name'], util.Property('branch')],
+        project['factory'].addStep(steps.SetPropertyFromCommand(
+            command=["python3", "bisect_good_commit.py", "read", project['name'], util.Property('branch')],
             name="Get good commit hash from file",
             workdir="../../Test_Worker/tests",
             doStepIf=doStepIf_git_bisect_start,
@@ -872,7 +905,7 @@ def git_bisect(project_name):
             extract_fn=extract_fn_read_good_commit
             ))
 
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=['git','bisect','good', util.Property('good_commit')],
             workdir="build",
             name="Git bisect: start good",
@@ -881,7 +914,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=['git','bisect','good'],
             workdir="build",
             name="Git bisect: good",
@@ -890,7 +923,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+        project['factory'].addStep(steps.SetPropertyFromCommand(
             command=['git','bisect','bad'],
             workdir="build",
             name="Git bisect: bad",
@@ -899,8 +932,8 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.Trigger(
-            schedulerNames=['git_bisect_'+projects[project_name]['scheduler_name']],
+        project['factory'].addStep(steps.Trigger(
+            schedulerNames=['git_bisect_'+project['scheduler_name']],
             updateSourceStamp=True,
             name="Trigger git bisect",
             set_properties= {
@@ -918,10 +951,10 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["python3", "report_janitor.py", "bisect_result",
                      util.Property('timestamp'),
-                     projects[project_name]['builderNames'][0],
+                     project['builderNames'][0],
                      util.Property("git_bisect_output"),
                      util.Property("git_bisect_state"),
                      "PMIC",
@@ -933,7 +966,7 @@ def git_bisect(project_name):
             hideStepIf=skipped
             ))
 
-        projects[project_name]['factory'].addStep(steps.ShellCommand(
+        project['factory'].addStep(steps.ShellCommand(
             command=["git", "bisect", "reset"],
             name="Git bisect reset",
             workdir="build",
@@ -953,17 +986,19 @@ def extract_get_factory_properties(rc, stdout, stderr):
         extracted_factory_properties[str(prop_key)] = str(prop_val)
     return extracted_factory_properties
 
-
-
 def get_factory_properties(project_name):
-    projects[project_name]['factory'].addStep(steps.SetPropertyFromCommand(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.SetPropertyFromCommand(
         command = ['python3', 'report_janitor.py', 'read_factory_properties'],
         workdir = '../../Test_Worker/tests',
         extract_fn = extract_get_factory_properties
         ))
 
 def set_factory_result_properties(project_name):
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project = projects[project_name]
+
+    project['factory'].addStep(steps.SetProperty(
         name="Kernel build / preparation: FAILED",
         property="LINUX_RESULT",
         value="FAILED",
@@ -971,14 +1006,14 @@ def set_factory_result_properties(project_name):
         hideStepIf=skipped
         ))
 
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project['factory'].addStep(steps.SetProperty(
         name="Kernel build / preparation: PASSED",
         property="LINUX_RESULT",
         value="PASSED",
         doStepIf=doStepIf_setProperty_LINUX_RESULT_PASSED,
         hideStepIf=skipped
         ))
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project['factory'].addStep(steps.SetProperty(
         name="Sensor Tests: FAILED",
         property="SENSOR_RESULT",
         value="FAILED",
@@ -986,14 +1021,14 @@ def set_factory_result_properties(project_name):
         hideStepIf=skipped
         ))
 
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project['factory'].addStep(steps.SetProperty(
         name="Sensor Tests: PASSED",
         property="SENSOR_RESULT",
         value="PASSED",
         doStepIf=doStepIf_setProperty_SENSOR_RESULT_PASSED,
         hideStepIf=skipped
         ))
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project['factory'].addStep(steps.SetProperty(
         name="PMIC Tests: FAILED",
         property="PMIC_RESULT",
         value="FAILED",
@@ -1001,14 +1036,14 @@ def set_factory_result_properties(project_name):
         hideStepIf=skipped
         ))
 
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project['factory'].addStep(steps.SetProperty(
         name="PMIC Tests: PASSED",
         property="PMIC_RESULT",
         value="PASSED",
         doStepIf=doStepIf_setProperty_PMIC_RESULT_PASSED,
         hideStepIf=skipped
         ))
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project['factory'].addStep(steps.SetProperty(
         name="ADDAC Tests: FAILED",
         property="ADDAC_RESULT",
         value="FAILED",
@@ -1016,7 +1051,7 @@ def set_factory_result_properties(project_name):
         hideStepIf=skipped
         ))
 
-    projects[project_name]['factory'].addStep(steps.SetProperty(
+    project['factory'].addStep(steps.SetProperty(
         name="ADDAC Tests: PASSED",
         property="ADDAC_RESULT",
         value="PASSED",
@@ -1056,13 +1091,5 @@ def build_deploy_kernel(project_name):
     # publish_results_git(project_name, 'PMIC')
     # publish_results_git(project_name, 'ADDAC')
 
-for stable_branch in stable_branches:
-    stable_branch = stable_branch.replace(".","_")
-    build_deploy_kernel('linux_stable_'+stable_branch)
-
-# build_deploy_kernel('linux_mainline')
-# build_deploy_kernel('test_linux')
-# build_deploy_kernel('linux-next')
-# build_deploy_kernel('linux_rohm_devel')
-# build_deploy_kernel('linux_fast_test')
-build_deploy_kernel('linux_local_test')
+for project_name in projects:
+    build_deploy_kernel(project_name)
