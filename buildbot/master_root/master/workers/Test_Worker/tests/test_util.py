@@ -518,24 +518,46 @@ def _assert_pmic_sanity_check(result, report_file, summary):
         print(test_info['pmic']['sanitycheck'], end='', file=report_file)
     _assert_test(result, report_file, summary)
 
+def _assert_generic_validate_config_product(result, report_file, summary):
+    name = result["product_name"]
+    expected = result['expect_product_name']
+
+    if name != expected:
+        print(f"Sanity check failed: Validate config: 'name' mismatch! Got '{name}', expected '{expected}'",
+              file=report_file)
+        print(f"Sanity check failed: Validate config", end='', file=summary)
+
+        report_file.close()
+        summary.close()
+        assert name == expected
+
+def _assert_generic_validate_config_i2c(result, report_file, summary):
+    bus_type = result["i2c_bus_type"]
+    address_type = result["i2c_address_type"]
+
+    if bus_type != int:
+        print(f"Sanity check failed: Validate config: invalid I2C 'bus' variable type! Got '{bus_type}', expected 'int'",
+              file=report_file)
+        print(f"Sanity check failed: Validate config", end='', file=summary)
+
+        report_file.close()
+        summary.close()
+        assert bus_type == int
+
+    if address_type != int:
+        print(f"Sanity check failed: Validate config: invalid I2C 'address' variable type! Got '{address_type}, expected 'int'",
+              file=report_file)
+        print(f"Sanity check failed: Validate config", end='', file=summary)
+
+        report_file.close()
+        summary.close()
+        assert address_type == int
+
 def _assert_pmic_validate_config(result, report_file, summary):
     summary_written = 0
     #Basic info
-    if result['product_name'] != result['expect_product_name']:
-        print( "Sanitycheck failed: validate config: 'name' mismatch! Read: "+result['product_name']+". Expected: "+result['expect_product_name']+"\n", end='', file=report_file)
-        print( "Sanitycheck failed: Validate config", end='', file=summary)
-        summary_written = 1
-    if result['i2c_bus_type'] != int:
-        print( "Sanitycheck failed: validate config: i2c bus variable type is wrong! Expected int, got "+str(result['i2c_bus_type'])+"\n", end='', file=report_file)
-        if summary_written == 0:
-            print( "Sanitycheck failed: Validate config", end='', file=summary)
-            summary_written = 1
-
-    if result['i2c_address_type'] != int:
-        print( "Sanitycheck failed: validate config: i2c address variable type is wrong! Expected int, got "+str(result['i2c_address_type'])+"\n", end='', file=report_file)
-        if summary_written == 0:
-            print( "Sanitycheck failed: Validate config", end='', file=summary)
-            summary_written = 1
+    _assert_generic_validate_config_product(result, report_file, summary)
+    _assert_generic_validate_config_i2c(result, report_file, summary)
 
     #Regulator setting checks
     x = 0
