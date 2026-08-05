@@ -65,6 +65,9 @@ class pmic:
                 regulator = regulator_list[1]
                 properties_found = []
 
+                if regulator == "dummy-vdd":
+                    regulator = 0
+
             if  regulator != 0:
                 prop_found=False
                 x=0
