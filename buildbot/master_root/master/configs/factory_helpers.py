@@ -41,7 +41,17 @@ class GenerateStagesCommand(buildstep.ShellMixin, steps.BuildStep):
         result = cmd.results()
         if result == util.SUCCESS:
             # create a ShellCommand for each stage and add them to the build
-            if self.test_type == "pmic":
+            if self.test_type == "generic":
+                self.build.addStepsAfterCurrentStep([steps.SetPropertyFromCommand(
+                    command=["pytest","--lg-log","/tmp/rohm_linux_driver_tests/temp_results_generic/",
+                             "--lg-env="+self.test_board+".yaml","--board="+self.test_board, self.product+"/"+stage],
+                    name=self.product+": "+stage,
+                    workdir="../tests/driver_tests",
+                    doStepIf=util.Property(self.product+'_do_steps') == 'True',
+                    extract_fn=self.extract_driver_tests_partial)
+                    for stage in self.extract_stages(self.observer.getStdout())
+                ])
+            elif self.test_type == "pmic":
                 self.build.addStepsAfterCurrentStep([steps.SetPropertyFromCommand(
                     command=["pytest","--lg-log","/tmp/rohm_linux_driver_tests/temp_results_PMIC/",
                              "--lg-env="+self.test_board+".yaml","--board="+self.test_board, self.product+"/"+stage],
@@ -378,7 +388,9 @@ def doStepIf_generate_driver_tests(step, product, dts):
         return False
 
 def generate_driver_tests(_factory, power_port, test_board, product, test_type='pmic', dts=None, result_dir='PMIC'):
-    if test_type == 'pmic':
+    if test_type == 'generic':
+        extract_driver_tests_partial = functools.partial(extract_driver_tests, product=product)
+    elif test_type == 'pmic':
         extract_driver_tests_partial = functools.partial(extract_pmic_driver_tests, product=product)
     elif test_type == 'accelerometer':
         extract_driver_tests_partial = functools.partial(extract_sensor_driver_tests, product=product)
@@ -392,7 +404,18 @@ def generate_driver_tests(_factory, power_port, test_board, product, test_type='
     doStepIf_generate_driver_tests_partial = functools.partial(doStepIf_generate_driver_tests, product=product, dts=dts)
     doStepIf_powerdown_beagle_partial = functools.partial(doStepIf_powerdown_beagle, product=product)
 
-    if test_type == "pmic":
+    if test_type == 'generic':
+        _factory.addStep(GenerateStagesCommand(
+            test_board, product, test_type, dts, extract_driver_tests_partial,
+            name=product+": Generate "+test_type+" test stages",
+            command=["python3", "generate_steps.py", product, test_type], workdir="../tests/driver_tests",
+            haltOnFailure=True,
+            doStepIf=doStepIf_generate_driver_tests_partial
+            ))
+
+        collect_dmesg_and_dts(_factory, test_board, product, test_dts=dts, result_dir=result_dir)
+
+    elif test_type == "pmic":
 
         extract_sanitycheck_error_partial = functools.partial(extract_sanitycheck_error, product=product)
         _factory.addStep(steps.SetPropertyFromCommand(command=[
@@ -745,6 +768,24 @@ def doStepIf_setProperty_PMIC_RESULT_FAILED(step):
             return True
         elif step.getProperty('single_login_failed') == 'True':
             if step.getProperty('single_login_passed') == 'True':
+                return False
+            else:
+                return True
+        else:
+            return False
+    else:
+        return False
+
+def doStepIf_setProperty_GENERIC_RESULT_PASSED(step):
+    if (not step.getProperty("git_bisecting") and step.getProperty("GENERIC_RESULT") == None):
+        return True
+
+def doStepIf_setProperty_GENERIC_RESULT_FAILED(step):
+    if (not step.getProperty("git_bisecting") and (step.getProperty("GENERIC_RESULT") == None and step.getProperty("LINUX_RESULT") == "PASSED")):
+        if step.getProperty("single_test_failed") == "True":
+            return True
+        elif step.getProperty("single_login_failed") == "True":
+            if step.getProperty("single_login_passed") == "True":
                 return False
             else:
                 return True

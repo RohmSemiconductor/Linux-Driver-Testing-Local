@@ -37,7 +37,7 @@ def initialize_test_report(project_name):
     project = projects[project_name]
 
     project["factory"].addStep(steps.ShellCommand(
-        command=["python3", "report_janitor.py", "initialize_report", project["builderName"], util.Property('commit-description'), util.Property('revision')],
+        command=["python3", "report_janitor.py", "initialize_report", project["builderNames"][0], util.Property('commit-description'), util.Property('revision')],
         workdir="../../Test_Worker/tests",
         name="Initialize test report",
         doStepIf=util.Property('git_bisecting') != 'True'
@@ -383,6 +383,24 @@ def doStepIf_trigger_sensor_factory(step):
 
 def trigger_test_factories(project_name):
     project = projects[project_name]
+
+    if "generic" in config.FACTORIES:
+        project["factory"].addStep(steps.Trigger(
+            schedulerNames=["scheduler-generic_tests"],
+            updateSourceStamp=True,
+            name="Trigger 'generic' test factories",
+            waitForFinish=True,
+            set_properties={
+                "iio_generic_buffer_found": util.Property("iio_generic_buffer_found"),
+                "preparation_step_failed": util.Property("preparation_step_failed"),
+                "git_bisecting": util.Property("git_bisecting"),
+                "commit-description": util.Property("commit-description"),
+                "factory_type": "generic",
+                "timestamp": util.Property("timestamp"),
+                "linuxdir": util.Property("buildername"),
+                "chipselect_spi0_dtbo_build_failed": util.Property("chipselect_spi0_dtbo_build_failed"),
+            },
+        ))
 
     if "pmic" in config.FACTORIES:
         project["factory"].addStep(steps.Trigger(
@@ -1004,60 +1022,74 @@ def set_factory_result_properties(project_name):
         value="FAILED",
         doStepIf=doStepIf_setProperty_LINUX_RESULT_FAILED,
         hideStepIf=skipped
-        ))
-
+    ))
     project['factory'].addStep(steps.SetProperty(
         name="Kernel build / preparation: PASSED",
         property="LINUX_RESULT",
         value="PASSED",
         doStepIf=doStepIf_setProperty_LINUX_RESULT_PASSED,
         hideStepIf=skipped
-        ))
+    ))
+
+    project['factory'].addStep(steps.SetProperty(
+        name="Generic Tests: FAILED",
+        property="GENERIC_RESULT",
+        value="FAILED",
+        doStepIf=doStepIf_setProperty_GENERIC_RESULT_FAILED,
+        hideStepIf=skipped
+    ))
+    project['factory'].addStep(steps.SetProperty(
+        name="Generic Tests: PASSED",
+        property="GENERIC_RESULT",
+        value="PASSED",
+        doStepIf=doStepIf_setProperty_GENERIC_RESULT_PASSED,
+        hideStepIf=skipped
+    ))
+
     project['factory'].addStep(steps.SetProperty(
         name="Sensor Tests: FAILED",
         property="SENSOR_RESULT",
         value="FAILED",
         doStepIf=doStepIf_setProperty_SENSOR_RESULT_FAILED,
         hideStepIf=skipped
-        ))
-
+    ))
     project['factory'].addStep(steps.SetProperty(
         name="Sensor Tests: PASSED",
         property="SENSOR_RESULT",
         value="PASSED",
         doStepIf=doStepIf_setProperty_SENSOR_RESULT_PASSED,
         hideStepIf=skipped
-        ))
+    ))
+
     project['factory'].addStep(steps.SetProperty(
         name="PMIC Tests: FAILED",
         property="PMIC_RESULT",
         value="FAILED",
         doStepIf=doStepIf_setProperty_PMIC_RESULT_FAILED,
         hideStepIf=skipped
-        ))
-
+    ))
     project['factory'].addStep(steps.SetProperty(
         name="PMIC Tests: PASSED",
         property="PMIC_RESULT",
         value="PASSED",
         doStepIf=doStepIf_setProperty_PMIC_RESULT_PASSED,
         hideStepIf=skipped
-        ))
+    ))
+
     project['factory'].addStep(steps.SetProperty(
         name="ADDAC Tests: FAILED",
         property="ADDAC_RESULT",
         value="FAILED",
         doStepIf=doStepIf_setProperty_ADDAC_RESULT_FAILED,
         hideStepIf=skipped
-        ))
-
+    ))
     project['factory'].addStep(steps.SetProperty(
         name="ADDAC Tests: PASSED",
         property="ADDAC_RESULT",
         value="PASSED",
         doStepIf=doStepIf_setProperty_ADDAC_RESULT_PASSED,
         hideStepIf=skipped
-        ))
+    ))
 
 
 def build_deploy_kernel(project_name):
@@ -1084,6 +1116,7 @@ def build_deploy_kernel(project_name):
         save_good_commit(project_name)
         git_bisect(project_name)
 
+    clean_local_results(project_name, 'generic', 30)
     clean_local_results(project_name, 'Sensor', 30)
     clean_local_results(project_name, 'PMIC', 30)
     clean_local_results(project_name, 'ADDAC', 30)

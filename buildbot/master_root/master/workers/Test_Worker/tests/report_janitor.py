@@ -15,6 +15,9 @@ if sys.argv[1] == 'initialize_report':
     stdout = subprocess.run('rm -rf /tmp/rohm_linux_driver_tests/temp_results/', shell=True)
     stdout = subprocess.run('mkdir /tmp/rohm_linux_driver_tests/temp_results', shell=True)
 
+    stdout = subprocess.run('rm -rf /tmp/rohm_linux_driver_tests/temp_results_generic/', shell=True)
+    stdout = subprocess.run('mkdir /tmp/rohm_linux_driver_tests/temp_results_generic', shell=True)
+
     stdout = subprocess.run('rm -rf /tmp/rohm_linux_driver_tests/temp_results_PMIC/', shell=True)
     stdout = subprocess.run('mkdir /tmp/rohm_linux_driver_tests/temp_results_PMIC', shell=True)
 
@@ -26,6 +29,7 @@ if sys.argv[1] == 'initialize_report':
     initialize_report(bb_project, linux_ver, revision)
 
 elif sys.argv[1] == 'initialize_factories':
+    stdout = subprocess.run('cp -r /tmp/rohm_linux_driver_tests/temp_results/* /tmp/rohm_linux_driver_tests/temp_results_generic/', shell=True)
     stdout = subprocess.run('cp -r /tmp/rohm_linux_driver_tests/temp_results/* /tmp/rohm_linux_driver_tests/temp_results_PMIC/', shell=True)
     stdout = subprocess.run('cp -r /tmp/rohm_linux_driver_tests/temp_results/* /tmp/rohm_linux_driver_tests/temp_results_sensor/', shell=True)
     stdout = subprocess.run('cp -r /tmp/rohm_linux_driver_tests/temp_results/* /tmp/rohm_linux_driver_tests/temp_results_ADDAC/', shell=True)
