@@ -822,6 +822,9 @@ def check_result(result):
         elif result['stage'] == 'config_validate_i2c':
             print(test_info['accelerometer']['config_validate_i2c'])
             _assert_generic_validate_config_i2c(result, report_file, summary)
+        elif result["stage"] == "try_read_attribute_range":
+            print(test_info["accelerometer"]["try_read_attribute_range"])
+            _assert_generic_comparison(result, report_file, summary)
 
     elif result['type'] == 'ADDAC':
         if result['stage'] == 'check_sysfs':

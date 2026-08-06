@@ -7,6 +7,7 @@ import copy
 import math
 import numbers
 
+from iio_helpers import iio_sysfs_read_attribute, iio_sysfs_write_attribute
 from test_class_helpers import bitshift_index_by_bitmask, escape_path, pc_to_int, frequency_to_ns, combine_bytes, twos_complement
 sys.path.append(os.path.abspath("."))
 
@@ -305,3 +306,20 @@ class sensor:
         xyz_value = float(xyz_value[0])
 
         return xyz_value
+
+    def try_read_attribute_range(self, command, dev: str, attr: str,
+                                 low: float, high: float):
+        self.result["stage"] = "try_read_attribute_range"
+        self.result["expect"] = "range"
+        self.result["expect_low"] = low
+        self.result["expect_high"] = high
+        self.result["return"] = float("nan")
+
+        value = iio_sysfs_read_attribute(command, dev, attr)
+        if value == None:
+            return self.result
+
+        print(f"value: {value}")
+        self.result["return"] = value
+
+        return self.result

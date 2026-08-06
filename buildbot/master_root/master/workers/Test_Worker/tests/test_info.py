@@ -353,6 +353,13 @@ This test does the default validation for config data, e.g. product name.
 This test does the I2C validation for config data, e.g. bus and address.
 """
 +test_info['footer']
+,
+'try_read_attribute_range':test_info['header']+
+"""
+This test attempts to read the given attribute using the IIO sysfs interface,
+and checks whether it is the given range.
+"""
++test_info['footer']
 
 }
 ### /ACCELEROMETER TESTS
