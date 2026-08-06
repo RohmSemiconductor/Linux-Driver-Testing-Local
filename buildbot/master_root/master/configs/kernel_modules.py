@@ -14,6 +14,7 @@ kernel_modules['linux_ver']={
 'bd96805':['6.16'],
 'bd96806':['6.16'],
 'bm1390':['7.0'],
+'bu27034':['7.0'],
 'kx022acr_z':['6.6'],
 'kx132acr_lbz':['6.12'],
 #'bd99954':['5.'],
@@ -50,6 +51,7 @@ kernel_modules['build']={
 'bd99954':['bd99954_test.dtbo'],
 ### Sensors
 'bm1390':['bm1390_test.dtbo'],
+'bu27034':['bu27034_test.dtbo'],
 'kx022acr_z':['kx022acr_z_test.dtbo', 'generic_accel_test.ko'],
 'kx132acr_lbz':['kx132acr_lbz_test.dtbo', 'generic_accel_test.ko'],
 ### ADDAC
@@ -96,6 +98,7 @@ kernel_modules['dt_overlays']={
 'bd96805':['bd96805_test.dtbo'],
 'bd96806':['bd96806_test.dtbo'],
 'bm1390':['bm1390_test.dtbo'],
+'bu27034':['bu27034_test.dtbo'],
 'kx022acr_z':['kx022acr_z_test.dtbo'],
 'kx132acr_lbz':['kx132acr_lbz_test.dtbo'],
 'bd79703':['chipselect_spi0.dtbo','bd79703_test.dtbo', kernel_modules['adc_pair']['bd79703']['dtbo']],
@@ -133,6 +136,7 @@ kernel_modules['merged_dt_overlay']={
 'bd96805':['bd96801_wdt', 'bd96801_regulator', 'rohm_bd96801'],
 'bd96806':['bd96801_regulator', 'rohm_bd96801'],
 'bm1390':['rohm_bm1390'],
+'bu27034':['rohm_bu27034'],
 'kx022acr_z':['kionix_kx022a_spi', 'kionix_kx022a_i2c', 'kionix_kx022a'],
 'kx132acr_lbz':['kionix_kx022a_spi', 'kionix_kx022a_i2c', 'kionix_kx022a'],
 'bd79703':['industrialio', 'rohm_bd79703', 'rohm_bd79124', 'industrialio_adc'],
