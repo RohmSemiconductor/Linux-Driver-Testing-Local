@@ -814,6 +814,13 @@ def check_result(result):
             print(test_info['accelerometer']['sampling_frequency'])
             _assert_sensor_test_sampling_frequency_match_timestamp(result, report_file, summary)
 
+        elif result['stage'] == 'config_validate_default':
+            print(test_info['accelerometer']['config_validate_default'])
+            _assert_generic_validate_config_product(result, report_file, summary)
+        elif result['stage'] == 'config_validate_i2c':
+            print(test_info['accelerometer']['config_validate_i2c'])
+            _assert_generic_validate_config_i2c(result, report_file, summary)
+
     elif result['type'] == 'ADDAC':
         if result['stage'] == 'check_sysfs':
             print(test_info['addac']['check_sysfs_information'])
