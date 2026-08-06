@@ -687,18 +687,14 @@ def check_result(result):
     report_file = None
     summary = None
 
-    if result['result_dir'] == 'PMIC':
-        report_file = open('/tmp/rohm_linux_driver_tests/temp_results_PMIC/temp_results.txt', 'a', encoding='utf-8')
-        summary = open('/tmp/rohm_linux_driver_tests/temp_results/summary.txt', 'a', encoding='utf-8')
-    elif result['result_dir'] == 'sensor':
-        report_file = open('/tmp/rohm_linux_driver_tests/temp_results_sensor/temp_results.txt', 'a', encoding='utf-8')
-        summary = open('/tmp/rohm_linux_driver_tests/temp_results/summary.txt', 'a', encoding='utf-8')
-    elif result['result_dir'] == 'ADDAC':
-        report_file = open('/tmp/rohm_linux_driver_tests/temp_results_ADDAC/temp_results.txt', 'a', encoding='utf-8')
-        summary = open('/tmp/rohm_linux_driver_tests/temp_results/summary.txt', 'a', encoding='utf-8')
-    elif result['result_dir'] == 'linux':
-        report_file = open('/tmp/rohm_linux_driver_tests/temp_results/temp_results.txt', 'a', encoding='utf-8')
-        summary = open('/tmp/rohm_linux_driver_tests/temp_results/summary.txt', 'a', encoding='utf-8')
+    if result["result_dir"] == "linux":
+        path = "/tmp/rohm_linux_driver_tests/temp_results/temp_results.txt"
+    else:
+        path = f"/tmp/rohm_linux_driver_tests/temp_results_{result["result_dir"]}/temp_results.txt"
+
+    report_file = open(path, "a", encoding="utf-8")
+    summary = open("/tmp/rohm_linux_driver_tests/temp_results/summary.txt",
+                   "a", encoding="utf-8")
 
     if report_file:
         report_file.seek(0,2)
