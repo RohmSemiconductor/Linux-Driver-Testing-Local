@@ -323,3 +323,112 @@ class sensor:
         self.result["return"] = value
 
         return self.result
+
+    def try_write_attribute(self, command, dev: str, attr: str, value: float):
+        self.result["stage"] = "test_write_attribute"
+        self.result["expect"] = True
+        self.result["return"] = False
+
+        # 1) Read initial value
+        x = iio_sysfs_read_attribute(command, dev, attr)
+        if x == None:
+            return self.result
+
+        # 2) Try setting attribute
+        if not iio_sysfs_write_attribute(command, dev, attr, value):
+            return self.result
+        self.result["return"] = True
+
+        # 3) Reset attribute
+        iio_sysfs_write_attribute(command, dev, attr, x)
+
+        print(f"{attr}: {value}")
+        return self.result
+
+    def try_write_attribute_gts(self, command, dev: str, value: float,
+                                write_attr: str, second_attr: str,
+                                third_attr: str):
+        self.result["stage"] = "try_write_attribute_gts"
+        self.result["expect"] = "meow"
+        self.result["return"] = "quack"
+
+        # 1) Read initial values
+        write = iio_sysfs_read_attribute(command, dev, write_attr)
+        second = iio_sysfs_read_attribute(command, dev, second_attr)
+        third = iio_sysfs_read_attribute(command, dev, third_attr)
+        if write == None or second == None or third == None:
+            return self.result
+
+        ratio = write * second * third
+        self.result["expect"] = ratio
+
+        print(f"write:  {write}")
+        print(f"second: {second}")
+        print(f"third:  {third}")
+        print(f"ratio:  {ratio}")
+
+        # 2) Modify writable attribute
+        if not iio_sysfs_write_attribute(command, dev, write_attr, value):
+            return self.result
+
+        # 3) Read updated values
+        write_old = write
+        write = iio_sysfs_read_attribute(command, dev, write_attr)
+        second = iio_sysfs_read_attribute(command, dev, second_attr)
+        third = iio_sysfs_read_attribute(command, dev, third_attr)
+        if write == None or second == None or third == None:
+            return self.result
+
+        ratio = write * second * third
+        self.result["return"] = ratio
+
+        print(f"write:  {write}")
+        print(f"second: {second}")
+        print(f"third:  {third}")
+        print(f"ratio:  {ratio}")
+
+        # 4) Reset writable attribute
+        iio_sysfs_write_attribute(command, dev, write_attr, write_old)
+
+        return self.result
+
+    def try_write_attribute_scale(self, command, dev: str, value: float,
+                                  write_scale_attr: str, time_attr: str,
+                                  gain_attr: str, scale_attr: str):
+        self.result["stage"] = "try_write_attribute_scale"
+        self.result["expect"] = "meow"
+        self.result["return"] = "quack"
+
+        # 1) Read initial values
+        time = iio_sysfs_read_attribute(command, dev, time_attr)
+        gain = iio_sysfs_read_attribute(command, dev, gain_attr)
+        scale = iio_sysfs_read_attribute(command, dev, scale_attr)
+        if time == None or gain == None or scale == None:
+            return self.result
+
+        self.result["expect"] = [time, gain, scale]
+        print(f"time:  {time}")
+        print(f"gain:  {gain}")
+        print(f"scale: {scale}")
+
+        # 2) Modify scale
+        if not iio_sysfs_write_attribute(command, dev, write_scale_attr, value):
+            return self.result
+
+        # 3) Read updated values
+        old_scale = scale
+        time = iio_sysfs_read_attribute(command, dev, time_attr)
+        gain = iio_sysfs_read_attribute(command, dev, gain_attr)
+        scale = iio_sysfs_read_attribute(command, dev, scale_attr)
+        if time == None or gain == None or scale == None:
+            return self.result
+
+        self.result["return"] = [time, gain, scale]
+        print(f"time:  {time}")
+        print(f"gain:  {gain}")
+        print(f"scale: {scale}")
+
+        # 4) Reset scale
+        iio_sysfs_write_attribute(command, dev, write_scale_attr, old_scale)
+
+        return self.result

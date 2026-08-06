@@ -360,6 +360,27 @@ This test attempts to read the given attribute using the IIO sysfs interface,
 and checks whether it is the given range.
 """
 +test_info['footer']
+,
+'try_write_attribute':test_info['header']+
+"""
+This test attempts to write the given value to the given attribute using the
+IIO sysfs interface.
+"""
++test_info['footer']
+,
+'try_write_attribute_gts':test_info['header']+
+"""
+This test attempts to write the given value to the given attribute using the
+IIO sysfs interface, and checks that the gain-time-scale changes accordingly.
+"""
++test_info['footer']
+,
+'try_write_attribute_scale':test_info['header']+
+"""
+This test attempts to write the given value to the given scale attribute using
+the IIO sysfs interface, and checks that the changes are done per channel.
+"""
++test_info['footer']
 
 }
 ### /ACCELEROMETER TESTS

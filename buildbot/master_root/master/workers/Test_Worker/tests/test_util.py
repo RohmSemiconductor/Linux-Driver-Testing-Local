@@ -825,6 +825,15 @@ def check_result(result):
         elif result["stage"] == "try_read_attribute_range":
             print(test_info["accelerometer"]["try_read_attribute_range"])
             _assert_generic_comparison(result, report_file, summary)
+        elif result['stage'] == 'try_write_attribute':
+            print(test_info["accelerometer"]["try_write_attribute"])
+            _assert_generic_comparison(result, report_file, summary)
+        elif result["stage"] == "try_write_attribute_gts":
+            print(test_info["accelerometer"]["try_write_attribute_gts"])
+            _assert_generic_comparison(result, report_file, summary)
+        elif result["stage"] == "try_write_attribute_scale":
+            print(test_info["accelerometer"]["try_write_attribute_scale"])
+            _assert_generic_comparison(result, report_file, summary)
 
     elif result['type'] == 'ADDAC':
         if result['stage'] == 'check_sysfs':
