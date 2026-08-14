@@ -28,20 +28,6 @@ class sensor:
     'expect':       [],
     })
 
-    def config_validate_default(self, name: str):
-        self.result["stage"] = "config_validate_default"
-        self.result["product_name"] = name
-        self.result["expect_product_name"] = self.board.data["name"]
-
-        return self.result
-
-    def config_validate_i2c(self):
-        self.result["stage"] = "config_validate_i2c"
-        self.result["i2c_bus_type"] = type(self.board.data["i2c"]["bus"])
-        self.result["i2c_address_type"] = type(self.board.data["i2c"]["address"])
-
-        return self.result
-
     def find_iio_device_files(self, command):
         stdout, stderr, returncode = command.run("grep -RIn "+self.board.data['iio_device']['name']+" /sys/bus/iio/devices/*/name | sed 's![^/]*$!!'")
         x = 0
