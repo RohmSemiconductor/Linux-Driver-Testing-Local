@@ -1,0 +1,81 @@
+/dts-v1/;
+/plugin/;
+
+/{
+
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+	part-number = "BBB-I2C1";
+	version = "00A0";
+
+	fragment@0 {
+		target-path = "/";
+
+		__overlay__ {
+			dummyreg: dummyreg {
+				compatible = "regulator-fixed";
+				regulator-name = "dummy-vdd";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				regulator-always-on;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&spi0>;
+
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			bd79112: bd79112@0 {
+				compatible = "rohm,bd79112";
+				reg = <0x0>;
+
+				spi-cpha;
+				spi-cpol;
+				spi-max-frequency = <400000>;
+
+				vdd-supply = <&dummyreg>;
+				iovdd-supply = <&dummyreg>;
+
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				gpio-controller;
+				#gpio-cells = <2>;
+
+				channel@5 {
+					reg = <5>;
+				};
+				channel@6 {
+					reg = <6>;
+				};
+				channel@7 {
+					reg = <7>;
+				};
+				channel@8 {
+					reg = <8>;
+				};
+				channel@9 {
+					reg = <9>;
+				};
+				channel@10 {
+					reg = <10>;
+				};
+				channel@11 {
+					reg = <11>;
+				};
+				channel@12 {
+					reg = <12>;
+				};
+				channel@13 {
+					reg = <13>;
+				};
+				channel@14 {
+					reg = <14>;
+				};
+			};
+		};
+	};
+};
