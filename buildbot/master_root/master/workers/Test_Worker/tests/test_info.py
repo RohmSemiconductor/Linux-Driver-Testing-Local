@@ -96,6 +96,12 @@ This test does the I2C validation for config data, e.g. bus and address.
 """
 +test_info['footer']
 ,
+'config_validate_gpio':test_info['header']+
+"""
+This test does the GPIO validation for config data, e.g. labels and indices.
+"""
++test_info['footer']
+,
 }
 ### /GENERIC TESTS
 

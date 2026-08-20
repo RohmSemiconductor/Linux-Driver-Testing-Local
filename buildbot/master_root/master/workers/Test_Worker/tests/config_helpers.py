@@ -15,3 +15,20 @@ def config_validate_i2c(self):
     self.result["i2c_address_type"] = type(self.board.data["i2c"]["address"])
 
     return self.result
+
+def config_validate_gpio(self):
+    self.result["stage"] = "config_validate_gpio"
+    self.result["expect"] = True
+    self.result["return"] = False
+
+    if not "gpio" in self.board.data:
+        return self.result
+
+    for gpio in self.board.data["gpio"].values():
+        if not "label" in gpio or not type(gpio["label"]) is str:
+            return self.result
+        if not "index" in gpio or not type(gpio["index"]) is int:
+            return self.result
+
+    self.result["return"] = True
+    return self.result

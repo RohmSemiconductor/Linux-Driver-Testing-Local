@@ -862,3 +862,6 @@ def check_result(result):
         case 'config_validate_i2c':
             print(test_info['generic']['config_validate_i2c'])
             _assert_generic_validate_config_i2c(result, report_file, summary)
+        case 'config_validate_gpio':
+            print(test_info['generic']['config_validate_gpio'])
+            _assert_generic_comparison(result, report_file, summary)
