@@ -8,6 +8,7 @@ kernel_modules['linux_ver']={
 'bd72720':['5.6'],
 'bd71837':['4.20'],
 'bd71847':['4.20'],
+'bd79112':['7.0'],
 'bd9576':['5.13'],
 'bd96801':['6.11'],
 'bd96802':['6.16'],
@@ -55,6 +56,7 @@ kernel_modules['build']={
 'kx022acr_z':['kx022acr_z_test.dtbo', 'generic_accel_test.ko'],
 'kx132acr_lbz':['kx132acr_lbz_test.dtbo', 'generic_accel_test.ko'],
 ### ADDAC
+'bd79112':['bd79112_test.dtbo'],
 'bd79703':['bd79703_test.dtbo'],
 'bd79701':['bd79701_test.dtbo'],
 }
@@ -91,6 +93,7 @@ kernel_modules['dt_overlays']={
 #'bd71837':['bd71837_test.dtbo','bbb_only_I2C_1.dtbo'],
 'bd71837':['bd71837_test.dtbo'],
 'bd71847':['bd71847_test.dtbo'],
+'bd79112':['chipselect_spi0.dtbo', 'bd79112_test.dtbo'],
 'bd9576':['bd9576_test.dtbo'],
 'bd9573':['bd9573_test.dtbo'],
 'bd96801':['bd96801_test.dtbo'],
@@ -129,6 +132,7 @@ kernel_modules['merged_dt_overlay']={
 'bd72720':['rohm_bd71828'],
 'bd71837':['bd718x7_regulator','rohm_regulator','clk_bd718x7','rohm_bd718x7'],
 'bd71847':['bd718x7_regulator','rohm_regulator','clk_bd718x7','rohm_bd718x7'],
+'bd79112':['rohm_bd79112', 'industrialio', 'industrialio_adc'],
 'bd9576':['bd9576_wdt','bd9576_regulator','rohm_bd9576'],
 'bd9573':['bd9576_wdt','bd9576_regulator','rohm_bd9576'],
 'bd96801':['bd96801_wdt', 'bd96801_regulator', 'rohm_bd96801'],
