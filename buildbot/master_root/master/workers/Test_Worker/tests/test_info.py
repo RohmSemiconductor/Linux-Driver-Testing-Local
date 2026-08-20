@@ -83,6 +83,19 @@ Kunit test success is determined by checking the kunit_dmesg part for "not ok".
 """
 +test_info['footer']
 ,
+
+'config_validate_default':test_info['header']+
+"""
+This test does the default validation for config data, e.g. product name.
+"""
++test_info['footer']
+,
+'config_validate_i2c':test_info['header']+
+"""
+This test does the I2C validation for config data, e.g. bus and address.
+"""
++test_info['footer']
+,
 }
 ### /GENERIC TESTS
 
@@ -338,19 +351,6 @@ tolerance is added to both directions when comparing results.
 """
 This reads the m/s² value from the iio sysfs interface and compares that value
 to a m/s² value that is calculated from the hardware register with a bit of tolerance.
-"""
-+test_info['footer']
-,
-
-'config_validate_default':test_info['header']+
-"""
-This test does the default validation for config data, e.g. product name.
-"""
-+test_info['footer']
-,
-'config_validate_i2c':test_info['header']+
-"""
-This test does the I2C validation for config data, e.g. bus and address.
 """
 +test_info['footer']
 ,

@@ -715,144 +715,150 @@ def check_result(result):
         summary.seek(0,2)
 
     if result['type'] == 'generic':
-        if result['stage'] == 'ip_power': #NOT IN USE CURRENTLY
-            _assert_generic_ip_power(result, report_file, summary)
-        elif result['stage'] == 'login':
-            print(test_info['generic']['login'])
-            _assert_generic_login(result, report_file, summary)
-        elif result['stage'] == 'iio_generic_buffer':
-            print(test_info['generic']['check_iio_generic_buffer'])
-            _assert_generic_iio_generic_buffer(result, report_file, summary)
-        elif result['stage'] == 'init_overlay':
-            print(test_info['generic']['init_overlay'])
-            _assert_generic_init_overlay(result, report_file, summary)
-        elif result['stage'] == 'merge_dt_overlay':
-            print(test_info['generic']['merge_dt_overlay'])
-            _assert_generic_merge_dt_overlay_insmod_tests(result, report_file, summary)
-        elif result['stage'] == 'insmod_tests':
-            print(test_info['generic']['insmod_tests'])
-            _assert_generic_merge_dt_overlay_insmod_tests(result, report_file, summary)
-        elif result['stage'] == 'get_dmesg':
-            print(test_info['generic']['get_dmesg'])
-            _assert_generic_get_dmesg(result, report_file, summary)
-        elif result['stage'] == 'kunit_test':
-            print(test_info['generic']['kunit_test'])
-            _assert_generic_kunit_test(result, report_file, summary)
+        match result['stage']:
+            case 'ip_power': #NOT IN USE CURRENTLY
+                _assert_generic_ip_power(result, report_file, summary)
+            case 'login':
+                print(test_info['generic']['login'])
+                _assert_generic_login(result, report_file, summary)
+            case 'iio_generic_buffer':
+                print(test_info['generic']['check_iio_generic_buffer'])
+                _assert_generic_iio_generic_buffer(result, report_file, summary)
+            case 'init_overlay':
+                print(test_info['generic']['init_overlay'])
+                _assert_generic_init_overlay(result, report_file, summary)
+            case 'merge_dt_overlay':
+                print(test_info['generic']['merge_dt_overlay'])
+                _assert_generic_merge_dt_overlay_insmod_tests(result, report_file, summary)
+            case 'insmod_tests':
+                print(test_info['generic']['insmod_tests'])
+                _assert_generic_merge_dt_overlay_insmod_tests(result, report_file, summary)
+            case 'get_dmesg':
+                print(test_info['generic']['get_dmesg'])
+                _assert_generic_get_dmesg(result, report_file, summary)
+            case 'kunit_test':
+                print(test_info['generic']['kunit_test'])
+                _assert_generic_kunit_test(result, report_file, summary)
 
     elif result['type'] == 'PMIC':
-        #Sanity check:
-        if result['stage'] == 'validate_config':
-            print(test_info['pmic']['sanitycheck'])
-            _assert_pmic_validate_config(result, report_file, summary)
-        elif result['stage'] == 'sanity_check':
-            print(test_info['pmic']['sanitycheck'])
-            _assert_pmic_sanity_check(result, report_file, summary)
-        elif result['stage'] == 'sanity_check_sysfs_set':
-            print(test_info['pmic']['sanitycheck'])
-            _assert_pmic_sanity_check_sysfs_set(result, report_file, summary)
-        elif result['stage'] == 'sanity_check_sysfs_en':
-            print(test_info['pmic']['sanitycheck'])
-            _assert_pmic_sanity_check_sysfs_en(result, report_file, summary)
-        elif result['stage'] == 'disable_vr_fault':
-            print(test_info['pmic']['sanitycheck'])
-            _assert_pmic_disable_vr_fault(result, report_file, summary)
+        match result['stage']:
+            #Sanity check:
+            case 'validate_config':
+                print(test_info['pmic']['sanitycheck'])
+                _assert_pmic_validate_config(result, report_file, summary)
+            case 'sanity_check':
+                print(test_info['pmic']['sanitycheck'])
+                _assert_pmic_sanity_check(result, report_file, summary)
+            case 'sanity_check_sysfs_set':
+                print(test_info['pmic']['sanitycheck'])
+                _assert_pmic_sanity_check_sysfs_set(result, report_file, summary)
+            case 'sanity_check_sysfs_en':
+                print(test_info['pmic']['sanitycheck'])
+                _assert_pmic_sanity_check_sysfs_en(result, report_file, summary)
+            case 'disable_vr_fault':
+                print(test_info['pmic']['sanitycheck'])
+                _assert_pmic_disable_vr_fault(result, report_file, summary)
 
-        #Regulator enable / disable:
-        elif result['stage'] == 'regulator_enable' or result['stage'] == 'regulator_disable':
-            print(test_info['pmic']['regulator_en'])
-            _assert_pmic_regulator_en(result, report_file, summary)
-        elif result['stage'] == 'regulator_is_on_driver':
-            print(test_info['pmic']['regulator_is_on_driver'])
-            _assert_pmic_regulator_is_on_driver(result, report_file, summary)
-        elif result['stage'] == 'regulator_is_on':
-            print(test_info['pmic']['regulator_is_on'])
-            _assert_pmic_regulator_is_on(result, report_file, summary)
+            #Regulator enable / disable:
+            case 'regulator_enable' | 'regulator_disable':
+                print(test_info['pmic']['regulator_en'])
+                _assert_pmic_regulator_en(result, report_file, summary)
+            case 'regulator_is_on_driver':
+                print(test_info['pmic']['regulator_is_on_driver'])
+                _assert_pmic_regulator_is_on_driver(result, report_file, summary)
+            case 'regulator_is_on':
+                print(test_info['pmic']['regulator_is_on'])
+                _assert_pmic_regulator_is_on(result, report_file, summary)
 
-        #Regulator voltages:
-        elif result['stage'] == 'voltage_run':
-            print(test_info['pmic']['voltage_run'])
-            _assert_pmic_voltage_run(result, report_file, summary)
-        elif result['stage'] == 'regulator_voltage_driver_get':
-            print(test_info['pmic']['regulator_voltage_driver_get'])
-            _assert_pmic_voltage_run(result, report_file, summary)
-        elif result['stage'] == 'tune_register_run':
-            print(test_info['pmic']['tune_register_run'])
-            _assert_pmic_tune_register_run(result, report_file, summary)
-        elif result['stage'] == 'out_of_range_voltages':
-            print(test_info['pmic']['out_of_range_voltages'])
-            _assert_pmic_out_of_range_voltages(result, report_file, summary)
-        elif result['stage'] == 'read_dt_setting':
-            print(test_info['pmic']['read_dt_setting'])
-            _assert_pmic_read_dt_setting(result, report_file, summary)
+            #Regulator voltages:
+            case 'voltage_run':
+                print(test_info['pmic']['voltage_run'])
+                _assert_pmic_voltage_run(result, report_file, summary)
+            case 'regulator_voltage_driver_get':
+                print(test_info['pmic']['regulator_voltage_driver_get'])
+                _assert_pmic_voltage_run(result, report_file, summary)
+            case 'tune_register_run':
+                print(test_info['pmic']['tune_register_run'])
+                _assert_pmic_tune_register_run(result, report_file, summary)
+            case 'out_of_range_voltages':
+                print(test_info['pmic']['out_of_range_voltages'])
+                _assert_pmic_out_of_range_voltages(result, report_file, summary)
+            case 'read_dt_setting':
+                print(test_info['pmic']['read_dt_setting'])
+                _assert_pmic_read_dt_setting(result, report_file, summary)
 
-        #PMIC RTC:  ##result description missing
-        elif result['stage'] == 'reset_and_check_date':
-            print(test_info['rtc']['reset_and_check_date'])
-            _assert_pmic_rtc_date(result, report_file, summary)
-        elif result['stage'] == 'set_rtc_from_srv_time':
-            print(test_info['rtc']['set_rtc_from_srv_time'])
-            _assert_pmic_set_rtc_from_srv_time(result, report_file, summary)
-        elif result['stage'] == 'set_bbb_from_rtc_time':
-            print(test_info['rtc']['set_bbb_from_rtc_time'])
-            _assert_pmic_set_bbb_from_rtc_time(result, report_file, summary)
-        elif result['stage'] == 'set_rtc_from_bbb_sys_time':
-            print(test_info['rtc']['set_rtc_from_bbb_sys_time'])
-            _assert_pmic_set_rtc_from_bbb_sys_time(result, report_file, summary)
+            #PMIC RTC:  ##result description missing
+            case 'reset_and_check_date':
+                print(test_info['rtc']['reset_and_check_date'])
+                _assert_pmic_rtc_date(result, report_file, summary)
+            case 'set_rtc_from_srv_time':
+                print(test_info['rtc']['set_rtc_from_srv_time'])
+                _assert_pmic_set_rtc_from_srv_time(result, report_file, summary)
+            case 'set_bbb_from_rtc_time':
+                print(test_info['rtc']['set_bbb_from_rtc_time'])
+                _assert_pmic_set_bbb_from_rtc_time(result, report_file, summary)
+            case 'set_rtc_from_bbb_sys_time':
+                print(test_info['rtc']['set_rtc_from_bbb_sys_time'])
+                _assert_pmic_set_rtc_from_bbb_sys_time(result, report_file, summary)
 
-        elif result["stage"] == "rtc_set_and_test_alarm":
-            print(test_info["rtc"]["rtc_set_and_test_alarm"])
-            _assert_rtc_set_and_test_alarm(result, report_file, summary)
+            case "rtc_set_and_test_alarm":
+                print(test_info["rtc"]["rtc_set_and_test_alarm"])
+                _assert_rtc_set_and_test_alarm(result, report_file, summary)
 
-        elif result["stage"] == "gpio_get_value_via_sysfs":
-            print(test_info["pmic"]["gpio_get_value_via_sysfs"])
-            _assert_gpio_get_value_via_sysfs(result, report_file, summary)
+            case "gpio_get_value_via_sysfs":
+                print(test_info["pmic"]["gpio_get_value_via_sysfs"])
+                _assert_gpio_get_value_via_sysfs(result, report_file, summary)
 
     elif result['type'] == 'Sensor':
-        if result['stage'] == 'test_gsel':
-            print(test_info['accelerometer']['gsel'])
-            _assert_sensor_test_gsel(result, report_file, summary)
-        elif result['stage'] == 'gscale_raw_match':
-            print(test_info['accelerometer']['gscale_raw_match'])
-            _assert_sensor_test_gscale_raw_match(result, report_file, summary)
-        elif result['stage'] == 'gscale_raw_scale': #NOT IN USE
-            _assert_sensor_test_gscale_raw_scale(result, report_file, summary)
-        elif result['stage'] == 'gscale_ms2_match':
-            print(test_info['accelerometer']['gscale_ms2'])
-            _assert_sensor_test_gscale_ms2_match(result, report_file, summary)
-        elif result['stage'] == 'test_sampling_frequency_match_timestamp':
-            print(test_info['accelerometer']['sampling_frequency'])
-            _assert_sensor_test_sampling_frequency_match_timestamp(result, report_file, summary)
+        match result['stage']:
+            case 'test_gsel':
+                print(test_info['accelerometer']['gsel'])
+                _assert_sensor_test_gsel(result, report_file, summary)
+            case 'gscale_raw_match':
+                print(test_info['accelerometer']['gscale_raw_match'])
+                _assert_sensor_test_gscale_raw_match(result, report_file, summary)
+            case 'gscale_raw_scale': #NOT IN USE
+                _assert_sensor_test_gscale_raw_scale(result, report_file, summary)
+            case 'gscale_ms2_match':
+                print(test_info['accelerometer']['gscale_ms2'])
+                _assert_sensor_test_gscale_ms2_match(result, report_file, summary)
+            case 'test_sampling_frequency_match_timestamp':
+                print(test_info['accelerometer']['sampling_frequency'])
+                _assert_sensor_test_sampling_frequency_match_timestamp(result, report_file, summary)
 
-        elif result['stage'] == 'config_validate_default':
-            print(test_info['accelerometer']['config_validate_default'])
-            _assert_generic_validate_config_product(result, report_file, summary)
-        elif result['stage'] == 'config_validate_i2c':
-            print(test_info['accelerometer']['config_validate_i2c'])
-            _assert_generic_validate_config_i2c(result, report_file, summary)
-        elif result["stage"] == "try_read_attribute_range":
-            print(test_info["accelerometer"]["try_read_attribute_range"])
-            _assert_generic_comparison(result, report_file, summary)
-        elif result['stage'] == 'try_write_attribute':
-            print(test_info["accelerometer"]["try_write_attribute"])
-            _assert_generic_comparison(result, report_file, summary)
-        elif result["stage"] == "try_write_attribute_gts":
-            print(test_info["accelerometer"]["try_write_attribute_gts"])
-            _assert_generic_comparison(result, report_file, summary)
-        elif result["stage"] == "try_write_attribute_scale":
-            print(test_info["accelerometer"]["try_write_attribute_scale"])
-            _assert_generic_comparison(result, report_file, summary)
+            case "try_read_attribute_range":
+                print(test_info["accelerometer"]["try_read_attribute_range"])
+                _assert_generic_comparison(result, report_file, summary)
+            case 'try_write_attribute':
+                print(test_info["accelerometer"]["try_write_attribute"])
+                _assert_generic_comparison(result, report_file, summary)
+            case "try_write_attribute_gts":
+                print(test_info["accelerometer"]["try_write_attribute_gts"])
+                _assert_generic_comparison(result, report_file, summary)
+            case "try_write_attribute_scale":
+                print(test_info["accelerometer"]["try_write_attribute_scale"])
+                _assert_generic_comparison(result, report_file, summary)
 
     elif result['type'] == 'ADDAC':
-        if result['stage'] == 'check_sysfs':
-            print(test_info['addac']['check_sysfs_information'])
-            _assert_addac_check_sysfs(result, report_file, summary)
-        elif result['stage'] == 'write_read':
-            print(test_info['addac']['write_read'])
-            _assert_addac_test_write_read(result, report_file, summary)
-        elif result['stage'] == 'stable_voltage':
-            print(test_info['addac']['read_stable_voltage'])
-            _assert_addac_test_stable_voltage(result, report_file, summary)
+        match result['stage']:
+            case 'check_sysfs':
+                print(test_info['addac']['check_sysfs_information'])
+                _assert_addac_check_sysfs(result, report_file, summary)
+            case 'write_read':
+                print(test_info['addac']['write_read'])
+                _assert_addac_test_write_read(result, report_file, summary)
+            case 'stable_voltage':
+                print(test_info['addac']['read_stable_voltage'])
+                _assert_addac_test_stable_voltage(result, report_file, summary)
 
-        elif result["stage"] == "gpio_sysfs_check_value":
-            print(test_info["addac"]["gpio_sysfs_check_value"])
-            _assert_gpio_sysfs_check_value(result, report_file, summary)
+            case "gpio_sysfs_check_value":
+                print(test_info["addac"]["gpio_sysfs_check_value"])
+                _assert_gpio_sysfs_check_value(result, report_file, summary)
+
+    match result['stage']:
+        case 'config_validate_default':
+            print(test_info['generic']['config_validate_default'])
+            _assert_generic_validate_config_product(result, report_file, summary)
+        case 'config_validate_i2c':
+            print(test_info['generic']['config_validate_i2c'])
+            _assert_generic_validate_config_i2c(result, report_file, summary)
