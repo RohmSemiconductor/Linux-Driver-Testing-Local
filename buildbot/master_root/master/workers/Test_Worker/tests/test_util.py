@@ -682,6 +682,13 @@ def _assert_gpio_get_value_via_sysfs(result, report_file, summary):
 
     _assert_test(result, report_file, summary)
 
+def _assert_gpio_sysfs_check_value(result, report_file, summary):
+    if result['return'] != result['expect']:
+        print(f'Unexpected value from GPIO: got {result['return']}, expected {result['expect']}',
+            end='', file=report_file)
+
+    _assert_test(result, report_file, summary)
+
 def _assert_generic_comparison(result, report_file, summary):
     if result["return"] != result["expect"] and result["expect"] != "range":
         print(f"Unexpected value: got '{result["return"]}', expected '{result["expect"]}'",
@@ -845,3 +852,7 @@ def check_result(result):
         elif result['stage'] == 'stable_voltage':
             print(test_info['addac']['read_stable_voltage'])
             _assert_addac_test_stable_voltage(result, report_file, summary)
+
+        elif result["stage"] == "gpio_sysfs_check_value":
+            print(test_info["addac"]["gpio_sysfs_check_value"])
+            _assert_gpio_sysfs_check_value(result, report_file, summary)

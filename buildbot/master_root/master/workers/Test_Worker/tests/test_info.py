@@ -381,7 +381,6 @@ This test attempts to write the given value to the given scale attribute using
 the IIO sysfs interface, and checks that the changes are done per channel.
 """
 +test_info['footer']
-
 }
 ### /ACCELEROMETER TESTS
 
@@ -423,4 +422,13 @@ This test reads through every value in every channel from a tested DAC.
 8. If a channel passes the test, reset DAC output voltage to 0V.
 """
 +test_info['footer']
+,
+
+"gpio_sysfs_check_value":test_info["header"]+
+"""
+This test attempts to set the given GPO pin to the expected value, and read the
+given GPI pin for the same value using the GPIO sysfs interface.
+"""
++test_info["footer"]
+,
 }
